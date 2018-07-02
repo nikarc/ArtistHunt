@@ -8,8 +8,10 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 typealias EmptyAPICallback = (_ error: Error?) -> ()
+typealias PlaylistCallback = (_ data: JSON?, _ error: Error?) -> ()
 
 class ApiService: NSObject {
     static let defaults = UserDefaults.standard
@@ -22,13 +24,47 @@ class ApiService: NSObject {
     }
     
     static func createUser(code: String, _ callback: @escaping EmptyAPICallback) {
-        if let city = defaults.object(forKey: Constants.cityDefault) {
+        if let city = defaults.object(forKey: UserDefatultsKeys.cityDefault) {
             let params: Parameters = [
                 "code": code,
                 "city": city
             ]
             
+            // Set user default for spt token
+            defaults.set(code, forKey: UserDefatultsKeys.sptCode)
+            
             Alamofire.request("\(Constants.apiURL)/api/signup", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil)
+                .validate(statusCode: 200..<300)
+                .responseJSON { (response) in
+                    switch response.result {
+                    case .success(_):
+                        let json = JSON(response.data!)
+                        print("JSON: \(json)")
+                        defaults.set(json["access_token"].stringValue, forKey: UserDefatultsKeys.sptAccessToken)
+                        defaults.set(json["refresh_token"].stringValue, forKey: UserDefatultsKeys.sptRefreshCode)
+                        defaults.set(json["username"].stringValue, forKey: UserDefatultsKeys.sptUsername)
+                        defaults.set(json["playlistId"].stringValue, forKey: UserDefatultsKeys.sptPlaylistId)
+                        // Add 1 hour to current time - the time that the token will expire
+                        let calendar = Calendar.current
+                        if let expireTime = calendar.date(byAdding: .hour, value: 1, to: Date()) {
+                            defaults.set(expireTime, forKey: UserDefatultsKeys.sptCodeExpires)
+                        }
+                        callback(nil)
+                    case .failure(let error):
+                        callback(error)
+                    }
+            }
+        }
+    }
+    
+    static func refreshSPTToken(_ callback: @escaping EmptyAPICallback) {
+        if let refreshToken = defaults.object(forKey: UserDefatultsKeys.sptRefreshCode) as? String, let userame = defaults.object(forKey: UserDefatultsKeys.sptUsername) as? String {
+            let params: Parameters = [
+                "refreshToken": refreshToken,
+                "username": userame
+            ]
+            
+            Alamofire.request("\(Constants.apiURL)/api/refreshSPTToken", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil)
                 .validate(statusCode: 200..<300)
                 .responseJSON { (response) in
                     switch response.result {
@@ -36,6 +72,27 @@ class ApiService: NSObject {
                         callback(nil)
                     case .failure(let error):
                         callback(error)
+                    }
+            }
+        }
+    }
+    
+    static func getPlaylist(_ callback: @escaping PlaylistCallback) {
+        if let username = defaults.object(forKey: UserDefatultsKeys.sptUsername) as? String, let accessToken = defaults.object(forKey: UserDefatultsKeys.sptAccessToken) as? String {
+            let params: Parameters = [
+                "username": username,
+                "accessToken": accessToken
+            ]
+            
+            Alamofire.request("\(Constants.apiURL)/api/getUserPlaylist", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil)
+                .validate(statusCode: 200..<300)
+                .responseJSON { (response) in
+                    switch response.result {
+                    case .success(let data):
+                        let json = JSON(data)
+                        callback(json, nil)
+                    case .failure(let error):
+                        callback(nil, error)
                     }
             }
         }

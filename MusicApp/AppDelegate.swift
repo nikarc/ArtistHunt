@@ -12,21 +12,50 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let defaults = UserDefaults()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Check for spotify token. if exists, skip login
+
+        if let _ = defaults.object(forKey: UserDefatultsKeys.sptCode) as? String, let _ = defaults.object(forKey: UserDefatultsKeys.sptUsername), let expiresIn = defaults.object(forKey: UserDefatultsKeys.sptCodeExpires) as? Date {
+            let timeDifference = Int(Date().timeIntervalSince(expiresIn))
+            if timeDifference >= 0 {
+                // Greater than 1 hour, token has expired, needs refresh
+                ApiService.refreshSPTToken { [unowned self] (error) in
+                    guard error == nil else { return }
+                    self.setInitialView()
+                }
+            } else {
+                // token does NOT need to be refreshed, go to playist table view
+                setInitialView()
+            }
+        }
+        
         return true
     }
-//    musicapp://auth/callback?code=AQC0oelFa2arHUCmSREBfQK3O1PQIRKqb1jxxiN8UBj5mo1UdrrimCZz6ErRkPwNreG5vKAMFxbm7jSDQAXnPCVdDR_V1JbtZEZa_Hikgy1uOKAoq1jDSKcZq4rPrHf41p2ENuXxwW2QKKLZnxObRB_MZdPH4pEIalApNbtUAYBG8X3UP8-Mh3hC42cVwfJ9J8bgakewIFTo90YoOaO-zZ5mXuY6e4swJPvJAvNu_UlCG9osui11DF1htTODSol25x6CdbTmMYUk_sMdjUScUwozzX3goR-ICC21
+    
+    /**
+        Set initial VC to app navigation controller (skip initial signup)
+    */
+    func setInitialView() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let navigationController = storyboard.instantiateViewController(withIdentifier: "NavController") as? UINavigationController {
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
+        }
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let queryItems = URLComponents(string: url.absoluteString)?.queryItems
+        // TODO: Show some kind of loading screen over signup so that user knows something is happening
         if let code = queryItems?.filter({ $0.name == "code" }).first?.value {
-            ApiService.createUser(code: code) { (error) in
+            ApiService.createUser(code: code) { [unowned self] (error) in
                 guard error == nil else {
                     print("There was an error \(error!.localizedDescription)")
                     return
                 }
+                
+                self.setInitialView()
             }
         }
         

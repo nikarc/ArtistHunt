@@ -27,7 +27,7 @@ class SpotifySignInViewController: UIViewController {
     
     @IBAction func signInSubmit(_ sender: Any) {
         if let city = cityTextField.text {
-            defaults.set(city, forKey: Constants.cityDefault)
+            defaults.set(city, forKey: UserDefatultsKeys.cityDefault)
             ApiService.loginToSpotify()
         }
     }
