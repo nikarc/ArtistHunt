@@ -10,6 +10,8 @@ import UIKit
 import SwiftyJSON
 
 class PlaylistTableViewController: UITableViewController {
+    
+    var tracks: [JSON] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +30,13 @@ class PlaylistTableViewController: UITableViewController {
                 return
             }
             
-            // TODO: Display data
-            print("JSON: \(json)")
+            guard json != nil else {
+                self.showAlert(title: "Oops!", message: "No data returned from playlist GET")
+                return
+            }
+            
+            self.tracks = json!["playlist"]["tracks"].arrayValue
+            self.tableView.reloadData()
         }
     }
 
@@ -42,23 +49,22 @@ class PlaylistTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return tracks.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        // TODO: Custom cell
+        
+        let track = self.tracks[indexPath.row]
+        cell.textLabel?.text = track["name"].stringValue
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
