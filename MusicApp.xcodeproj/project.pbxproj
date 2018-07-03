@@ -22,6 +22,7 @@
 		DD935D8520D9DDC30026EF95 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD935D8420D9DDC30026EF95 /* Constants.swift */; };
 		DDEB49DF20E95161001C6E3E /* PlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEB49DE20E95161001C6E3E /* PlaylistTableViewController.swift */; };
 		DDEB49E120EA4EC2001C6E3E /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEB49E020EA4EC2001C6E3E /* AlertExtension.swift */; };
+		DDEB49E320EB0B95001C6E3E /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEB49E220EB0B95001C6E3E /* TrackDetailViewController.swift */; };
 		F904910BD5E263CE7915CC18 /* Pods_MusicApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0992E260A1E3973A6220A6F /* Pods_MusicApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		DD935D8420D9DDC30026EF95 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DDEB49DE20E95161001C6E3E /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
 		DDEB49E020EA4EC2001C6E3E /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
+		DDEB49E220EB0B95001C6E3E /* TrackDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		F0992E260A1E3973A6220A6F /* Pods_MusicApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 				DD935D8020D9DC380026EF95 /* SpotifySignInViewController.swift */,
 				DDEB49DE20E95161001C6E3E /* PlaylistTableViewController.swift */,
 				DDEB49E020EA4EC2001C6E3E /* AlertExtension.swift */,
+				DDEB49E220EB0B95001C6E3E /* TrackDetailViewController.swift */,
 				DD935D8220D9DCB10026EF95 /* ApiService.swift */,
 				DD935D8420D9DDC30026EF95 /* Constants.swift */,
 				DD78C22820D9DF9400226C2F /* EncodeURIComponent.swift */,
@@ -397,6 +400,7 @@
 			files = (
 				DD78C22920D9DF9400226C2F /* EncodeURIComponent.swift in Sources */,
 				DD935D8520D9DDC30026EF95 /* Constants.swift in Sources */,
+				DDEB49E320EB0B95001C6E3E /* TrackDetailViewController.swift in Sources */,
 				DDEB49DF20E95161001C6E3E /* PlaylistTableViewController.swift in Sources */,
 				DD935D8120D9DC380026EF95 /* SpotifySignInViewController.swift in Sources */,
 				DDEB49E120EA4EC2001C6E3E /* AlertExtension.swift in Sources */,

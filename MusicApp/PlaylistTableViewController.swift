@@ -65,6 +65,15 @@ class PlaylistTableViewController: UITableViewController {
         cell.textLabel?.text = track["name"].stringValue
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let track = tracks[indexPath.row]
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "TrackDetail") as? TrackDetailViewController {
+            vc.track = track
+            
+            self.present(vc, animated: true)
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

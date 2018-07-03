@@ -96,6 +96,37 @@
             </objects>
             <point key="canvasLocation" x="2388" y="132.68365817091455"/>
         </scene>
+        <!--Track Detail View Controller-->
+        <scene sceneID="T2H-av-rRG">
+            <objects>
+                <viewController storyboardIdentifier="TrackDetail" id="FQa-CZ-w0Z" customClass="TrackDetailViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M2J-9Y-qzb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qBd-ej-rfH">
+                                <rect key="frame" x="0.0" y="20" width="375" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="3fx-v9-COi"/>
+                                </constraints>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qBd-ej-rfH" firstAttribute="leading" secondItem="aS8-rB-bSH" secondAttribute="leading" id="D1a-if-Dic"/>
+                            <constraint firstItem="qBd-ej-rfH" firstAttribute="top" secondItem="aS8-rB-bSH" secondAttribute="top" id="HnF-bS-mXk"/>
+                            <constraint firstItem="qBd-ej-rfH" firstAttribute="trailing" secondItem="aS8-rB-bSH" secondAttribute="trailing" id="YCL-JS-tx6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="aS8-rB-bSH"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="qBd-ej-rfH" id="c6z-dg-SuI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d3Z-MI-2cc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3381.5999999999999" y="132.68365817091455"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="7sv-8L-oeq">
             <objects>
