@@ -76,12 +76,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="ZKT-mg-Iae">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="d6V-mc-69E" detailTextLabel="2X5-hU-yVf" style="IBUITableViewCellStyleSubtitle" id="ZKT-mg-Iae">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZKT-mg-Iae" id="czA-Yh-cBr">
                                     <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d6V-mc-69E">
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2X5-hU-yVf">
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -95,6 +111,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PUd-75-dqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2388" y="132.68365817091455"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="IPp-aB-TJj">
+            <objects>
+                <viewController storyboardIdentifier="WebView" id="giN-mT-1Fq" customClass="WebViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="szb-3v-ACT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llB-ru-lSE">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="llB-ru-lSE" firstAttribute="top" secondItem="91a-f7-EG6" secondAttribute="top" id="8TE-fa-Hoq"/>
+                            <constraint firstItem="91a-f7-EG6" firstAttribute="trailing" secondItem="llB-ru-lSE" secondAttribute="trailing" id="W87-e5-vha"/>
+                            <constraint firstItem="llB-ru-lSE" firstAttribute="leading" secondItem="91a-f7-EG6" secondAttribute="leading" id="WL9-vO-YoN"/>
+                            <constraint firstItem="91a-f7-EG6" firstAttribute="bottom" secondItem="llB-ru-lSE" secondAttribute="bottom" id="hJl-8a-CuJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="91a-f7-EG6"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="llB-ru-lSE" id="0bB-ON-SNL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iqu-zy-vHf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2528" y="878"/>
         </scene>
         <!--Track Detail View Controller-->
         <scene sceneID="T2H-av-rRG">
@@ -110,17 +160,56 @@
                                     <constraint firstAttribute="height" constant="250" id="3fx-v9-COi"/>
                                 </constraints>
                             </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPt-ga-2cz">
+                                <rect key="frame" x="16" y="278" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="KBe-PP-FKR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Venue Info" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1H-YA-COq">
+                                <rect key="frame" x="16" y="344" width="343" height="125"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="125" id="K7j-gH-Aci"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9NN-wr-2Ah">
+                                <rect key="frame" x="16" y="514" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="grQ-rq-Fa5"/>
+                                </constraints>
+                                <state key="normal" title="Buy Tickets"/>
+                                <connections>
+                                    <action selector="purchaseTickets:" destination="FQa-CZ-w0Z" eventType="touchUpInside" id="dSL-kp-e1j"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="aS8-rB-bSH" firstAttribute="trailing" secondItem="cPt-ga-2cz" secondAttribute="trailing" constant="16" id="17F-bZ-bzO"/>
                             <constraint firstItem="qBd-ej-rfH" firstAttribute="leading" secondItem="aS8-rB-bSH" secondAttribute="leading" id="D1a-if-Dic"/>
+                            <constraint firstItem="cPt-ga-2cz" firstAttribute="leading" secondItem="aS8-rB-bSH" secondAttribute="leading" constant="16" id="FRj-iZ-l3R"/>
                             <constraint firstItem="qBd-ej-rfH" firstAttribute="top" secondItem="aS8-rB-bSH" secondAttribute="top" id="HnF-bS-mXk"/>
+                            <constraint firstItem="aS8-rB-bSH" firstAttribute="trailing" secondItem="9NN-wr-2Ah" secondAttribute="trailing" constant="16" id="QWN-Zi-yVi"/>
                             <constraint firstItem="qBd-ej-rfH" firstAttribute="trailing" secondItem="aS8-rB-bSH" secondAttribute="trailing" id="YCL-JS-tx6"/>
+                            <constraint firstItem="9NN-wr-2Ah" firstAttribute="top" secondItem="i1H-YA-COq" secondAttribute="bottom" constant="45" id="Zgc-mM-rgw"/>
+                            <constraint firstItem="cPt-ga-2cz" firstAttribute="top" secondItem="qBd-ej-rfH" secondAttribute="bottom" constant="8" id="aO1-f5-1SB"/>
+                            <constraint firstItem="aS8-rB-bSH" firstAttribute="trailing" secondItem="i1H-YA-COq" secondAttribute="trailing" constant="16" id="aQj-N0-Ccn"/>
+                            <constraint firstItem="i1H-YA-COq" firstAttribute="top" secondItem="cPt-ga-2cz" secondAttribute="bottom" constant="16" id="bd9-LO-gD8"/>
+                            <constraint firstItem="i1H-YA-COq" firstAttribute="leading" secondItem="aS8-rB-bSH" secondAttribute="leading" constant="16" id="uAM-qM-NMN"/>
+                            <constraint firstItem="9NN-wr-2Ah" firstAttribute="leading" secondItem="aS8-rB-bSH" secondAttribute="leading" constant="16" id="xNk-E8-8tU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aS8-rB-bSH"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="qBd-ej-rfH" id="c6z-dg-SuI"/>
+                        <outlet property="venueInfo" destination="i1H-YA-COq" id="6hR-ug-2vn"/>
+                        <outlet property="venueNameLabel" destination="cPt-ga-2cz" id="ybS-J6-zef"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3Z-MI-2cc" userLabel="First Responder" sceneMemberID="firstResponder"/>

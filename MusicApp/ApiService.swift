@@ -39,7 +39,6 @@ class ApiService: NSObject {
                     switch response.result {
                     case .success(_):
                         let json = JSON(response.data!)
-                        print("JSON: \(json)")
                         defaults.set(json["access_token"].stringValue, forKey: UserDefatultsKeys.sptAccessToken)
                         defaults.set(json["refresh_token"].stringValue, forKey: UserDefatultsKeys.sptRefreshCode)
                         defaults.set(json["username"].stringValue, forKey: UserDefatultsKeys.sptUsername)

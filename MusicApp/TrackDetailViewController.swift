@@ -16,16 +16,35 @@ class TrackDetailViewController: UIViewController {
     let regionRadius: CLLocationDistance = 800
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var venueNameLabel: UILabel!
+    @IBOutlet weak var venueInfo: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         print("EVENT: \(track!["event"])")
-        let lat = track!["event"]["venue"]["location"]["lat"].doubleValue
-        let lon = track!["event"]["venue"]["location"]["lon"].doubleValue
-        
-        let initialLocation = CLLocation(latitude: lat, longitude: lon)
-        centerMapOnLocation(location: initialLocation)
+        if let track = track {
+            self.title = track["name"].stringValue
+            
+            let venue = track["event"]["venue"]
+            let lat = venue["location"]["lat"].doubleValue
+            let lon = venue["location"]["lon"].doubleValue
+            
+            let initialLocation = CLLocation(latitude: lat, longitude: lon)
+            centerMapOnLocation(location: initialLocation)
+            
+            let venueName = venue["name"].stringValue
+            venueNameLabel.text = venueName
+            
+            var venueInfoText = "\(venue["address"]) \(venue["extended_address"])\n"
+            
+            let performers = track["event"]["performers"].arrayValue
+            performers.forEach { (performer) in
+                venueInfoText += "\n\(performer["name"])"
+            }
+            
+            venueInfo.text = venueInfoText
+        }
     }
     
     func centerMapOnLocation(location: CLLocation) {
@@ -44,7 +63,14 @@ class TrackDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    @IBAction func purchaseTickets(_ sender: Any) {
+        if let track = track, let vc = storyboard?.instantiateViewController(withIdentifier: "WebView") as? WebViewController {
+            vc.url = track["event"]["url"].stringValue
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     /*
     // MARK: - Navigation
 

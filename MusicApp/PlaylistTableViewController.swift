@@ -12,17 +12,20 @@ import SwiftyJSON
 class PlaylistTableViewController: UITableViewController {
     
     var tracks: [JSON] = []
+    
+    let dateFormatter = DateFormatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dateFormatter.dateFormat = Constants.dbDate
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        self.title = "Upcoming Artists"
         
         ApiService.getPlaylist { [unowned self] (json, error) in
             guard error == nil else {
@@ -35,7 +38,14 @@ class PlaylistTableViewController: UITableViewController {
                 return
             }
             
-            self.tracks = json!["playlist"]["tracks"].arrayValue
+            self.tracks = json!["playlist"]["tracks"].arrayValue.sorted(by: { [unowned self] (prev, next) -> Bool in
+                if let prevDate = self.dateFormatter.date(from: prev["event"]["datetime_local"].stringValue),
+                    let nextDate = self.dateFormatter.date(from: next["event"]["datetime_local"].stringValue) {
+                    return prevDate < nextDate
+                }
+                
+                return prev["name"].stringValue < next["name"].stringValue
+            })
             self.tableView.reloadData()
         }
     }
@@ -63,6 +73,14 @@ class PlaylistTableViewController: UITableViewController {
         
         let track = self.tracks[indexPath.row]
         cell.textLabel?.text = track["name"].stringValue
+        
+        if let eventDate = dateFormatter.date(from: track["event"]["datetime_local"].stringValue) {
+            let readableDateFormatter = DateFormatter()
+            readableDateFormatter.dateFormat = "MMM d h:mm a"
+            
+            let dateString = readableDateFormatter.string(from: eventDate)
+            cell.detailTextLabel?.text = dateString
+        }
         return cell
     }
     
@@ -71,7 +89,7 @@ class PlaylistTableViewController: UITableViewController {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TrackDetail") as? TrackDetailViewController {
             vc.track = track
             
-            self.present(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 

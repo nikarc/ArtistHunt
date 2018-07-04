@@ -14,6 +14,7 @@ struct Constants {
     static let sptScopes: String = "streaming playlist-read-private playlist-modify-private playlist-modify-public user-read-private"
     static let sptCallback: String = "musicapp://auth/callback"
     static let apiURL: String = "http://localhost:8083"
+    static let dbDate: String = "yyyy-MM-dd'T'HH:mm:ss"
 }
 
 struct UserDefatultsKeys {
