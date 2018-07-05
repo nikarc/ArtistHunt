@@ -27,7 +27,7 @@ class PlaylistTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        ApiService.getPlaylist { [unowned self] (json, error) in
+        ApiService.shared.getPlaylist { [unowned self] (json, error) in
             guard error == nil else {
                 self.showAlert(title: "Oops!", message: "There was an error getting the playlist: \(error!.localizedDescription)")
                 return

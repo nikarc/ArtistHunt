@@ -14,6 +14,11 @@ typealias EmptyAPICallback = (_ error: Error?) -> ()
 typealias PlaylistCallback = (_ data: JSON?, _ error: Error?) -> ()
 
 class ApiService: NSObject {
+    
+    static let shared = ApiService()
+    
+    var tracks: JSON?
+    
     static let defaults = UserDefaults.standard
     
     static func loginToSpotify() {
@@ -76,8 +81,10 @@ class ApiService: NSObject {
         }
     }
     
-    static func getPlaylist(_ callback: @escaping PlaylistCallback) {
-        if let username = defaults.object(forKey: UserDefatultsKeys.sptUsername) as? String, let accessToken = defaults.object(forKey: UserDefatultsKeys.sptAccessToken) as? String {
+    func getPlaylist(_ callback: @escaping PlaylistCallback) {
+        if let tracks = self.tracks {
+            callback(tracks, nil)
+        } else if let username = ApiService.defaults.object(forKey: UserDefatultsKeys.sptUsername) as? String, let accessToken = ApiService.defaults.object(forKey: UserDefatultsKeys.sptAccessToken) as? String {
             let params: Parameters = [
                 "username": username,
                 "accessToken": accessToken
@@ -85,10 +92,11 @@ class ApiService: NSObject {
             
             Alamofire.request("\(Constants.apiURL)/api/getUserPlaylist", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil)
                 .validate(statusCode: 200..<300)
-                .responseJSON { (response) in
+                .responseJSON { [unowned self] (response) in
                     switch response.result {
                     case .success(let data):
                         let json = JSON(data)
+                        self.tracks = json["playlist"]["tracks"]
                         callback(json, nil)
                     case .failure(let error):
                         callback(nil, error)
