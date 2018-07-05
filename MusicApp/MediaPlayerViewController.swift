@@ -23,14 +23,20 @@ class MediaPlayerViewController: UIViewController, SPTAudioStreamingPlaybackDele
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var upArrow: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageViewContainer: UIView!
+    @IBOutlet weak var imageView: UIImageView!
     
     let defaults = UserDefaults.standard
+    let albumImageHeight: CGFloat = 200
     
     var delegate: MediaPlayerControllerDelegate?
     var screenHeight: CGFloat?
     var state: MediaPlayerViewState = .collapsed
     var tracks: JSON?
     var player = SPTAudioStreamingController.sharedInstance()
+    var currentPlayingTrack: JSON?
+    var currentPlayingTrackIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +70,8 @@ class MediaPlayerViewController: UIViewController, SPTAudioStreamingPlaybackDele
             let insetScale: CGFloat = 5
             upArrow.imageEdgeInsets = UIEdgeInsetsMake(insetScale, insetScale, insetScale, insetScale)
         }
+        
+        imageView.contentMode = .scaleAspectFit
     }
 
     override func didReceiveMemoryWarning() {
@@ -95,10 +103,27 @@ class MediaPlayerViewController: UIViewController, SPTAudioStreamingPlaybackDele
         case .expanded:
             // Media player is expanded, collapse
             state = .collapsed
+            imageHeight.constant = 0
         }
     }
     
-    
+    func loadAlbumArt() {
+        if player != nil, let currentPlayingTrack = currentPlayingTrack {
+            // load up image
+            let imageUrlString = currentPlayingTrack["album"]["images"][0]["url"].stringValue
+            
+            if let imageUrl = URL(string: imageUrlString), let data = try? Data(contentsOf: imageUrl) {
+                imageView.image = UIImage(data: data)
+                if imageHeight.constant != albumImageHeight {
+                    imageHeight.constant = albumImageHeight
+                    UIView.animate(withDuration: 0.3) {
+                        self.view.layoutIfNeeded()
+                        self.imageViewContainer.backgroundColor = UIColor(red: 55 / 255, green: 55 / 255, blue: 55 / 255, alpha: 1)
+                    }
+                }
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -134,6 +159,9 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let track = tracks?[indexPath.row] {
+            currentPlayingTrack = track
+            currentPlayingTrackIndex = indexPath.row
+            
             player?.playSpotifyURI(track["uri"].stringValue, startingWith: 0, startingWithPosition: 0, callback: { [unowned self] (error) in
                 guard error == nil else {
                     self.showAlert(title: "Oops!", message: "Error playing song: \(error!.localizedDescription)")
@@ -155,5 +183,13 @@ extension MediaPlayerViewController {
                 }
             }
         }
+    }
+}
+
+// Delegate methods
+
+extension MediaPlayerViewController {
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
+        loadAlbumArt()
     }
 }
