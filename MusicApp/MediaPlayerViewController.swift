@@ -18,23 +18,35 @@ protocol MediaPlayerControllerDelegate {
     func stateToggled(_ state: MediaPlayerState)
 }
 
-class MediaPlayerViewController: UIViewController {
+class MediaPlayerViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate {
     
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var upArrow: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    let defaults = UserDefaults.standard
+    
     var delegate: MediaPlayerControllerDelegate?
     var screenHeight: CGFloat?
     var state: MediaPlayerState = .collapsed
     var tracks: JSON?
-    
+    var player = SPTAudioStreamingController.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        if let player = player {
+            player.playbackDelegate = self
+            player.delegate = self
+        
+            try! player.start(withClientId: Constants.sptClientId)
+            if let accessToken = defaults.object(forKey: UserDefatultsKeys.sptAccessToken) as? String {
+                player.login(withAccessToken: accessToken)
+            }
+        }
         
         screenHeight = UIScreen.main.bounds.height
 
@@ -122,7 +134,16 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let track = tracks?[indexPath.row] {
-            print("Track: \(track)")
+            // TODO: access token in userdefaults is old, needs to be updated
+            print("Play this: \(track["uri"].stringValue)")
+            player?.playSpotifyURI(track["uri"].stringValue, startingWith: 0, startingWithPosition: 0, callback: { [unowned self] (error) in
+                guard error == nil else {
+                    self.showAlert(title: "Oops!", message: "Error playing song: \(error!.localizedDescription)")
+                    return
+                }
+                
+                print("Playing")
+            })
         }
     }
 }

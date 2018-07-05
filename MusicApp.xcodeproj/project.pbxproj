@@ -26,6 +26,9 @@
 		DDEB49E520EC548E001C6E3E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEB49E420EC548E001C6E3E /* WebViewController.swift */; };
 		DDEB49E720EC5AC1001C6E3E /* MediaPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEB49E620EC5AC1001C6E3E /* MediaPlayerViewController.swift */; };
 		DDEB49E920EC5BCA001C6E3E /* MediaPlayerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEB49E820EC5BCA001C6E3E /* MediaPlayerContainerViewController.swift */; };
+		DDEB49ED20EDBE39001C6E3E /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEB49EA20EDBE39001C6E3E /* SpotifyMetadata.framework */; };
+		DDEB49EE20EDBE39001C6E3E /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEB49EB20EDBE39001C6E3E /* SpotifyAudioPlayback.framework */; };
+		DDEB49EF20EDBE39001C6E3E /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEB49EC20EDBE39001C6E3E /* SpotifyAuthentication.framework */; };
 		F904910BD5E263CE7915CC18 /* Pods_MusicApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0992E260A1E3973A6220A6F /* Pods_MusicApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +81,10 @@
 		DDEB49E420EC548E001C6E3E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		DDEB49E620EC5AC1001C6E3E /* MediaPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerViewController.swift; sourceTree = "<group>"; };
 		DDEB49E820EC5BCA001C6E3E /* MediaPlayerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerContainerViewController.swift; sourceTree = "<group>"; };
+		DDEB49EA20EDBE39001C6E3E /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
+		DDEB49EB20EDBE39001C6E3E /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
+		DDEB49EC20EDBE39001C6E3E /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
+		DDEB49F020EDBE9F001C6E3E /* MusicApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		F0992E260A1E3973A6220A6F /* Pods_MusicApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -86,7 +93,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDEB49ED20EDBE39001C6E3E /* SpotifyMetadata.framework in Frameworks */,
+				DDEB49EF20EDBE39001C6E3E /* SpotifyAuthentication.framework in Frameworks */,
 				F904910BD5E263CE7915CC18 /* Pods_MusicApp.framework in Frameworks */,
+				DDEB49EE20EDBE39001C6E3E /* SpotifyAudioPlayback.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +173,10 @@
 				DD935D5920D546FA0026EF95 /* Assets.xcassets */,
 				DD935D5B20D546FA0026EF95 /* LaunchScreen.storyboard */,
 				DD935D5E20D546FA0026EF95 /* Info.plist */,
+				DDEB49EB20EDBE39001C6E3E /* SpotifyAudioPlayback.framework */,
+				DDEB49EC20EDBE39001C6E3E /* SpotifyAuthentication.framework */,
+				DDEB49EA20EDBE39001C6E3E /* SpotifyMetadata.framework */,
+				DDEB49F020EDBE9F001C6E3E /* MusicApp-Bridging-Header.h */,
 			);
 			path = MusicApp;
 			sourceTree = "<group>";
@@ -267,6 +281,7 @@
 				TargetAttributes = {
 					DD935D4E20D546F80026EF95 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 0940;
 					};
 					DD935D6220D546FA0026EF95 = {
 						CreatedOnToolsVersion = 9.4;
@@ -592,8 +607,13 @@
 			baseConfigurationReference = 9743A97D98A9DDA5A3CECBBE /* Pods-MusicApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 39GX6UGC5E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusicApp",
+				);
 				INFOPLIST_FILE = MusicApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -601,6 +621,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nickarcuri.MusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MusicApp/MusicApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -611,8 +633,13 @@
 			baseConfigurationReference = A3597B5358B3F0A4C0F38D46 /* Pods-MusicApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 39GX6UGC5E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusicApp",
+				);
 				INFOPLIST_FILE = MusicApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -620,6 +647,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nickarcuri.MusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MusicApp/MusicApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

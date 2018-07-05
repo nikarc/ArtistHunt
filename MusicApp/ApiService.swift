@@ -72,7 +72,17 @@ class ApiService: NSObject {
                 .validate(statusCode: 200..<300)
                 .responseJSON { (response) in
                     switch response.result {
-                    case .success(_):
+                    case .success(let data):
+                        let json = JSON(data)
+                        let accessToken = json["accessToken"].stringValue
+                        
+                        let calendar = Calendar.current
+                        let now = Date()
+                        let date = calendar.date(byAdding: .hour, value: 1, to: now)
+                        
+                        defaults.set(accessToken, forKey: UserDefatultsKeys.sptAccessToken)
+                        defaults.set(date, forKey: UserDefatultsKeys.sptCodeExpires)
+                        
                         callback(nil)
                     case .failure(let error):
                         callback(error)
