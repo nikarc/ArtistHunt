@@ -9,13 +9,13 @@
 import UIKit
 import SwiftyJSON
 
-enum MediaPlayerState {
+enum MediaPlayerViewState {
     case collapsed
     case expanded
 }
 
 protocol MediaPlayerControllerDelegate {
-    func stateToggled(_ state: MediaPlayerState)
+    func stateToggled(_ state: MediaPlayerViewState)
 }
 
 class MediaPlayerViewController: UIViewController, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate {
@@ -28,7 +28,7 @@ class MediaPlayerViewController: UIViewController, SPTAudioStreamingPlaybackDele
     
     var delegate: MediaPlayerControllerDelegate?
     var screenHeight: CGFloat?
-    var state: MediaPlayerState = .collapsed
+    var state: MediaPlayerViewState = .collapsed
     var tracks: JSON?
     var player = SPTAudioStreamingController.sharedInstance()
 
@@ -134,16 +134,26 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let track = tracks?[indexPath.row] {
-            // TODO: access token in userdefaults is old, needs to be updated
-            print("Play this: \(track["uri"].stringValue)")
             player?.playSpotifyURI(track["uri"].stringValue, startingWith: 0, startingWithPosition: 0, callback: { [unowned self] (error) in
                 guard error == nil else {
                     self.showAlert(title: "Oops!", message: "Error playing song: \(error!.localizedDescription)")
                     return
                 }
-                
-                print("Playing")
             })
+        }
+    }
+}
+
+// Playback methods
+extension MediaPlayerViewController {
+    @IBAction func playPause(_ sender: Any) {
+        if let player = player {
+            player.setIsPlaying(!player.playbackState.isPlaying) { [unowned self] (error) in
+                guard error == nil else {
+                    self.showAlert(title: "Oops!", message: "There was an error during playback: \(error!.localizedDescription)")
+                    return
+                }
+            }
         }
     }
 }

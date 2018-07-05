@@ -47,7 +47,7 @@ class MediaPlayerContainerViewController: UIViewController {
 
 
 extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
-    func stateToggled(_ state: MediaPlayerState) {
+    func stateToggled(_ state: MediaPlayerViewState) {
         // do work
         switch state {
         case .collapsed:

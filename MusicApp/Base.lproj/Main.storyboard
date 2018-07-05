@@ -191,6 +191,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="playPause:" destination="rC0-72-RwR" eventType="touchUpInside" id="mY6-lg-cIx"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kjh-Ow-Hro">
                                 <rect key="frame" x="0.0" y="220" width="375" height="455"/>
