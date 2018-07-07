@@ -18,4 +18,8 @@ extension UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func showGenericErrorAlert(error: Error) {
+        showAlert(title: "Oops!", message: "There was an error: \(error.localizedDescription)")
+    }
 }

@@ -194,6 +194,25 @@
                                             <action selector="upButtonPressed:" destination="rC0-72-RwR" eventType="touchUpInside" id="dmZ-LC-IbF"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcQ-kx-rG5">
+                                        <rect key="frame" x="227" y="2" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="R65-Oc-vvL"/>
+                                            <constraint firstAttribute="height" constant="50" id="gx1-6g-Kv2"/>
+                                        </constraints>
+                                        <state key="normal" title="next"/>
+                                        <connections>
+                                            <action selector="nextTrack:" destination="rC0-72-RwR" eventType="touchUpInside" id="kgw-hK-EB8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AbI-Sg-Vtr">
+                                        <rect key="frame" x="97" y="2" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="B8f-3R-shh"/>
+                                            <constraint firstAttribute="width" constant="50" id="jcJ-vT-yYr"/>
+                                        </constraints>
+                                        <state key="normal" title="prev"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -201,7 +220,11 @@
                                     <constraint firstItem="rG3-ie-zRr" firstAttribute="centerX" secondItem="41y-Yo-QwS" secondAttribute="centerX" id="8yt-Ou-bth"/>
                                     <constraint firstItem="rG3-ie-zRr" firstAttribute="centerY" secondItem="41y-Yo-QwS" secondAttribute="centerY" id="A1w-g0-EUn"/>
                                     <constraint firstAttribute="height" constant="55" id="FGS-l8-fNl"/>
+                                    <constraint firstItem="AbI-Sg-Vtr" firstAttribute="centerY" secondItem="41y-Yo-QwS" secondAttribute="centerY" id="Jv2-05-OfB"/>
+                                    <constraint firstItem="qcQ-kx-rG5" firstAttribute="leading" secondItem="rG3-ie-zRr" secondAttribute="trailing" constant="15" id="KQ6-VC-nI6"/>
+                                    <constraint firstItem="rG3-ie-zRr" firstAttribute="leading" secondItem="AbI-Sg-Vtr" secondAttribute="trailing" constant="15" id="MCP-s5-Cb9"/>
                                     <constraint firstItem="kpd-eX-9ik" firstAttribute="top" secondItem="41y-Yo-QwS" secondAttribute="top" constant="12" id="MWB-lE-HkU"/>
+                                    <constraint firstItem="qcQ-kx-rG5" firstAttribute="centerY" secondItem="41y-Yo-QwS" secondAttribute="centerY" id="NNa-Ki-175"/>
                                     <constraint firstAttribute="trailing" secondItem="kpd-eX-9ik" secondAttribute="trailing" constant="12" id="rva-gO-t4C"/>
                                 </constraints>
                             </view>
@@ -256,6 +279,9 @@
                         <outlet property="imageHeight" destination="8Vp-e0-jAm" id="bTI-D0-qaH"/>
                         <outlet property="imageView" destination="4wy-9i-UTf" id="YWZ-t6-gqo"/>
                         <outlet property="imageViewContainer" destination="nUl-HI-GZW" id="BKu-lg-NcP"/>
+                        <outlet property="nextTrackButton" destination="qcQ-kx-rG5" id="h9r-H0-L9C"/>
+                        <outlet property="playPauseButton" destination="rG3-ie-zRr" id="34B-Vs-igg"/>
+                        <outlet property="prevTrackButton" destination="AbI-Sg-Vtr" id="IwX-ED-HBJ"/>
                         <outlet property="tableView" destination="Kjh-Ow-Hro" id="E27-7D-E0q"/>
                         <outlet property="upArrow" destination="kpd-eX-9ik" id="fYR-Nc-nkJ"/>
                     </connections>
