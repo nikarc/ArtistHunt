@@ -15,6 +15,8 @@ struct Constants {
     static let sptCallback: String = "musicapp://auth/callback"
     static let apiURL: String = "http://localhost:8083"
     static let dbDate: String = "yyyy-MM-dd'T'HH:mm:ss"
+    
+    static let sptGreen: UIColor = UIColor(red: 30 / 255, green: 215 / 255, blue: 96 / 255, alpha: 1.0)
 }
 
 struct UserDefatultsKeys {

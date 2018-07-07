@@ -36,6 +36,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
     let albumImageHeight: CGFloat = 200
     let playPauseButtonIconSize: CGFloat = 30
     let trackSkipButtonSize: CGFloat = 20
+    let selectedTrackColor: UIColor = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
     
     var delegate: MediaPlayerControllerDelegate?
     var screenHeight: CGFloat?
@@ -108,7 +109,6 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
     }
     
     func loadAlbumArt() {
-        // TODO: Not working on track change
         if let imageData = mediaPlayer.loadAlbumArt() {
             imageView.image = UIImage(data: imageData)
             if imageHeight.constant != albumImageHeight {
@@ -119,6 +119,22 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
                 }
             }
         }
+    }
+    
+    func changeCellTextColor(fromIndex: Int?, toIndex: Int, toColor: UIColor) {
+        if let fromIndex = fromIndex {
+            // Set track back to inital color
+            let fromIndexPath = IndexPath(row: fromIndex, section: 0)
+            let fromCell = tableView.cellForRow(at: fromIndexPath)
+            fromCell?.textLabel?.textColor = .black
+            fromCell?.detailTextLabel?.textColor = .black
+        }
+        
+        // Set new track to new color
+        let toIndexPath = IndexPath(row: toIndex, section: 0)
+        let toCell = tableView.cellForRow(at: toIndexPath)
+        toCell?.textLabel?.textColor = toColor
+        toCell?.detailTextLabel?.textColor = toColor
     }
 
 }
@@ -136,6 +152,8 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell", for: indexPath)
         
+        cell.selectionStyle = .none
+        
         if let track = tracks?[indexPath.row] {
             cell.textLabel?.text = track["name"].stringValue
             cell.detailTextLabel?.text = track["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
@@ -146,11 +164,14 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let track = tracks?[indexPath.row] {
+            let initialTrackIndex = self.mediaPlayer.currentPlayingTrackIndex
             mediaPlayer.playTrack(track, trackIndex: indexPath.row) { (error) in
                 guard error == nil else {
                     self.showAlert(title: "Oops!", message: "Error playing song: \(error!.localizedDescription)")
                     return
                 }
+                
+                self.changeCellTextColor(fromIndex: initialTrackIndex, toIndex: indexPath.row, toColor: self.selectedTrackColor)
             }
         }
     }
@@ -168,6 +189,7 @@ extension MediaPlayerViewController {
     }
     
     @IBAction func nextTrack(_ send: Any) {
+        let initialTrackIndex = mediaPlayer.currentPlayingTrackIndex
         mediaPlayer.switchTrack(context: .next) { (error) in
             guard error == nil else {
                 self.showGenericErrorAlert(error: error!)
@@ -175,10 +197,14 @@ extension MediaPlayerViewController {
             }
             
             self.loadAlbumArt()
+            if let trackIndex = self.mediaPlayer.currentPlayingTrackIndex {
+                self.changeCellTextColor(fromIndex: initialTrackIndex, toIndex: trackIndex, toColor: self.selectedTrackColor)
+            }
         }
     }
     
     @objc func prevTrack(_ sender: UIButton) {
+        let initialTrackIndex = mediaPlayer.currentPlayingTrackIndex
         mediaPlayer.switchTrack(context: .prev) { (error) in
             guard error == nil else {
                 self.showGenericErrorAlert(error: error!)
@@ -186,6 +212,9 @@ extension MediaPlayerViewController {
             }
             
             self.loadAlbumArt()
+            if let trackIndex = self.mediaPlayer.currentPlayingTrackIndex {
+                self.changeCellTextColor(fromIndex: initialTrackIndex, toIndex: trackIndex, toColor: self.selectedTrackColor)
+            }
         }
     }
     
