@@ -66,7 +66,15 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
         
         imageView.contentMode = .scaleAspectFit
         
-        prevTrackButton.addTarget(self, action: #selector(prevTrack(_:event:)), for: .touchDownRepeat)
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(replayTrack(_:)))
+        singleTap.numberOfTapsRequired = 1
+        prevTrackButton.addGestureRecognizer(singleTap)
+
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(prevTrack(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        prevTrackButton.addGestureRecognizer(doubleTap)
+        
+        singleTap.require(toFail: doubleTap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,6 +108,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
     }
     
     func loadAlbumArt() {
+        // TODO: Not working on track change
         if let imageData = mediaPlayer.loadAlbumArt() {
             imageView.image = UIImage(data: imageData)
             if imageHeight.constant != albumImageHeight {
@@ -112,18 +121,9 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
+// MARK: - Table View Delegate Methods
 extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -156,7 +156,7 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-// Playback methods
+// MARK: - Playback methods
 extension MediaPlayerViewController {
     @IBAction func playPause(_ sender: Any) {
         mediaPlayer.playPause { (error) in
@@ -173,23 +173,35 @@ extension MediaPlayerViewController {
                 self.showGenericErrorAlert(error: error!)
                 return
             }
+            
+            self.loadAlbumArt()
         }
     }
     
-    @objc func prevTrack(_ sender: UIButton, event: UIEvent) {
-        let touch: UITouch = event.allTouches!.first!
-        if touch.tapCount == 2 {
-            mediaPlayer.switchTrack(context: .prev) { (error) in
-                guard error == nil else {
-                    self.showGenericErrorAlert(error: error!)
-                    return
-                }
+    @objc func prevTrack(_ sender: UIButton) {
+        mediaPlayer.switchTrack(context: .prev) { (error) in
+            guard error == nil else {
+                self.showGenericErrorAlert(error: error!)
+                return
             }
+            
+            self.loadAlbumArt()
+        }
+    }
+    
+    @objc func replayTrack(_ sender: UIButton) {
+        mediaPlayer.replayTrack { (error) in
+            guard error == nil else {
+                self.showGenericErrorAlert(error: error!)
+                return
+            }
+            
+            self.loadAlbumArt()
         }
     }
 }
 
-// Delegate methods
+// MARK: - Media Player Delegate methods
 extension MediaPlayerViewController {
     func didStartPlayingTrack(_ trackUri: String) {
         loadAlbumArt()

@@ -113,8 +113,15 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
                 }
             }
             
-            let uri = tracks[self.currentPlayingTrackIndex!]["uri"].stringValue
+            self.currentPlayingTrack = tracks[self.currentPlayingTrackIndex!]
+            let uri = self.currentPlayingTrack!["uri"].stringValue
             player.playSpotifyURI(uri, startingWith: 0, startingWithPosition: 0, callback: callback)
+        }
+    }
+    
+    func replayTrack(_ callback: @escaping SPTErrorableOperationCallback) {
+        if let track = currentPlayingTrack {
+            player?.playSpotifyURI(track["uri"].stringValue, startingWith: 0, startingWithPosition: 0, callback: callback)
         }
     }
 }
