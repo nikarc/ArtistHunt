@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol MediaPlayerContainerDelegate {
+    func mediaPlayerAnimationComplete()
+}
+
 class MediaPlayerContainerViewController: UIViewController {
 
     @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
     
+    var delegate: MediaPlayerContainerDelegate?
     var mediaPlayerContainer: MediaPlayerViewController?
     var initialBottomLayoutConstant: CGFloat?
     
@@ -30,6 +35,8 @@ class MediaPlayerContainerViewController: UIViewController {
         if segue.identifier == "MediaPlayerSegue" {
             if let vc = segue.destination as? MediaPlayerViewController {
                 vc.delegate = self
+                
+                self.delegate = vc
             }
         }
     }
@@ -48,7 +55,6 @@ class MediaPlayerContainerViewController: UIViewController {
 
 extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
     func stateToggled(_ state: MediaPlayerViewState) {
-        // do work
         switch state {
         case .collapsed:
             // Media Player is collapsed, expand
@@ -58,8 +64,10 @@ extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
             bottomLayoutConstraint.constant = initialBottomLayoutConstant!
         }
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
+        }) { (finished) in
+            self.delegate?.mediaPlayerAnimationComplete()
         }
     }
 }

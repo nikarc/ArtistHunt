@@ -19,7 +19,7 @@ protocol MediaPlayerControllerDelegate {
     func stateToggled(_ state: MediaPlayerViewState)
 }
 
-class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
+class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPlayerContainerDelegate {
     
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var upArrow: UIButton!
@@ -87,27 +87,37 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
     }
     
     @IBAction func upButtonPressed(_ sender: Any) {
-        delegate?.stateToggled(state)
         switch state {
         case .collapsed:
             // Media player is collapsed, expand
-            state = .expanded
-            
-            mediaPlayer.getPlaylist { (tracks, error) in
-                guard error == nil else {
-                    self.showAlert(title: "Oops!", message: "Error getting tracks: \(error!.localizedDescription)")
-                    return
+            if let _ = self.tracks {
+                self.delegate?.stateToggled(self.state)
+                self.state = .expanded
+            } else {
+                mediaPlayer.getPlaylist { (tracks, error) in
+                    guard error == nil else {
+                        self.showAlert(title: "Oops!", message: "Error getting tracks: \(error!.localizedDescription)")
+                        return
+                    }
+                    
+                    guard tracks != nil else { return }
+                    
+                    self.tracks = tracks!
+                    self.tableView.reloadData()
+                    
+                    self.delegate?.stateToggled(self.state)
+                    self.state = .expanded
                 }
-                
-                guard tracks != nil else { return }
-                
-                self.tracks = tracks!
-                self.tableView.reloadData()
             }
         case .expanded:
             // Media player is expanded, collapse
-            state = .collapsed
             imageHeight.constant = 0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            }) { (completed) in
+                self.delegate?.stateToggled(self.state)
+                self.state = .collapsed
+            }
         }
     }
     
@@ -257,6 +267,20 @@ extension MediaPlayerViewController {
             playPauseButton.setIcon(icon: .ionicons(.pause), iconSize: playPauseButtonIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
         } else {
             playPauseButton.setIcon(icon: .ionicons(.play), iconSize: playPauseButtonIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
+        }
+    }
+}
+
+// MARK: - Media Player Container Delegate
+extension MediaPlayerViewController {
+    func mediaPlayerAnimationComplete() {
+        if state == .expanded {
+            if let _ = mediaPlayer.currentPlayingTrack {
+                imageHeight.constant = albumImageHeight
+                UIView.animate(withDuration: 0.5) {
+                    self.view.layoutIfNeeded()
+                }
+            }
         }
     }
 }
