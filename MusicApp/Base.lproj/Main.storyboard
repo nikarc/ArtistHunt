@@ -228,8 +228,17 @@
                                     <constraint firstAttribute="trailing" secondItem="kpd-eX-9ik" secondAttribute="trailing" constant="12" id="rva-gO-t4C"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Track" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPY-C1-Hag">
+                                <rect key="frame" x="0.0" y="56" width="375" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="nP0-NL-OZX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kjh-Ow-Hro">
-                                <rect key="frame" x="0.0" y="80" width="375" height="595"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="549"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" textLabel="4W5-d9-2mo" detailTextLabel="vwh-FC-3x7" style="IBUITableViewCellStyleSubtitle" id="yQx-q4-gUk">
@@ -261,21 +270,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="eLy-ok-qr7" firstAttribute="trailing" secondItem="mPY-C1-Hag" secondAttribute="trailing" id="4Qd-hU-PSo"/>
                             <constraint firstItem="nUl-HI-GZW" firstAttribute="top" secondItem="qpa-zC-axg" secondAttribute="top" id="8gU-Re-1ZC"/>
+                            <constraint firstItem="mPY-C1-Hag" firstAttribute="leading" secondItem="eLy-ok-qr7" secondAttribute="leading" id="Bb0-T1-2w1"/>
                             <constraint firstItem="41y-Yo-QwS" firstAttribute="leading" secondItem="eLy-ok-qr7" secondAttribute="leading" id="CLh-Zt-o0j"/>
                             <constraint firstItem="eLy-ok-qr7" firstAttribute="trailing" secondItem="Kjh-Ow-Hro" secondAttribute="trailing" id="MUC-KQ-JMb"/>
+                            <constraint firstItem="mPY-C1-Hag" firstAttribute="top" secondItem="41y-Yo-QwS" secondAttribute="bottom" constant="1" id="TIz-5Z-5G4"/>
                             <constraint firstItem="eLy-ok-qr7" firstAttribute="trailing" secondItem="nUl-HI-GZW" secondAttribute="trailing" id="baW-Nh-dNG"/>
                             <constraint firstItem="41y-Yo-QwS" firstAttribute="top" secondItem="nUl-HI-GZW" secondAttribute="bottom" id="cEq-TH-CMY"/>
+                            <constraint firstItem="Kjh-Ow-Hro" firstAttribute="top" secondItem="mPY-C1-Hag" secondAttribute="bottom" constant="10" id="git-Z2-fFf"/>
                             <constraint firstItem="nUl-HI-GZW" firstAttribute="leading" secondItem="eLy-ok-qr7" secondAttribute="leading" id="jts-bg-fAD"/>
                             <constraint firstItem="Kjh-Ow-Hro" firstAttribute="leading" secondItem="eLy-ok-qr7" secondAttribute="leading" id="l7q-6w-FWr"/>
-                            <constraint firstItem="Kjh-Ow-Hro" firstAttribute="top" secondItem="41y-Yo-QwS" secondAttribute="bottom" constant="25" id="nNH-jt-FIx"/>
-                            <constraint firstItem="eLy-ok-qr7" firstAttribute="bottom" secondItem="Kjh-Ow-Hro" secondAttribute="bottom" constant="50" id="qEJ-DN-lW5"/>
+                            <constraint firstItem="eLy-ok-qr7" firstAttribute="bottom" secondItem="Kjh-Ow-Hro" secondAttribute="bottom" constant="80" id="qEJ-DN-lW5"/>
                             <constraint firstItem="eLy-ok-qr7" firstAttribute="trailing" secondItem="41y-Yo-QwS" secondAttribute="trailing" id="wxE-wx-GKl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eLy-ok-qr7"/>
                     </view>
                     <connections>
                         <outlet property="buttonView" destination="41y-Yo-QwS" id="Ech-U9-BAQ"/>
+                        <outlet property="currentTrackLabel" destination="mPY-C1-Hag" id="4Va-E1-I1H"/>
                         <outlet property="imageHeight" destination="8Vp-e0-jAm" id="bTI-D0-qaH"/>
                         <outlet property="imageView" destination="4wy-9i-UTf" id="YWZ-t6-gqo"/>
                         <outlet property="imageViewContainer" destination="nUl-HI-GZW" id="BKu-lg-NcP"/>
@@ -380,17 +393,27 @@
                                     <segue destination="rC0-72-RwR" kind="embed" identifier="MediaPlayerSegue" id="UgW-MA-U8q"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnz-B7-Xct">
+                                <rect key="frame" x="0.0" y="782" width="375" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="tpS-bO-KkU"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="far-KL-kib" firstAttribute="trailing" secondItem="X40-bO-WDo" secondAttribute="trailing" id="1vc-YN-dw1"/>
                             <constraint firstItem="far-KL-kib" firstAttribute="height" secondItem="b4n-4Y-WJp" secondAttribute="height" constant="100" id="5VY-2v-UDK"/>
+                            <constraint firstItem="bnz-B7-Xct" firstAttribute="bottom" secondItem="X40-bO-WDo" secondAttribute="bottom" constant="34" id="7az-BH-fDD"/>
+                            <constraint firstItem="X40-bO-WDo" firstAttribute="trailing" secondItem="bnz-B7-Xct" secondAttribute="trailing" id="R1q-8F-dUa"/>
                             <constraint firstItem="far-KL-kib" firstAttribute="leading" secondItem="X40-bO-WDo" secondAttribute="leading" id="WmH-B9-KRw"/>
                             <constraint firstItem="b4n-4Y-WJp" firstAttribute="leading" secondItem="X40-bO-WDo" secondAttribute="leading" id="a1B-Ra-Ywa"/>
                             <constraint firstItem="b4n-4Y-WJp" firstAttribute="top" secondItem="X40-bO-WDo" secondAttribute="top" id="aw4-Wx-2P9"/>
                             <constraint firstItem="X40-bO-WDo" firstAttribute="trailing" secondItem="b4n-4Y-WJp" secondAttribute="trailing" id="ohr-kV-T5S"/>
                             <constraint firstItem="X40-bO-WDo" firstAttribute="bottom" secondItem="b4n-4Y-WJp" secondAttribute="bottom" constant="75" id="sVf-eT-Xwf"/>
                             <constraint firstItem="far-KL-kib" firstAttribute="bottom" secondItem="X40-bO-WDo" secondAttribute="bottom" constant="684" id="vWc-lX-xhA"/>
+                            <constraint firstItem="bnz-B7-Xct" firstAttribute="leading" secondItem="X40-bO-WDo" secondAttribute="leading" id="zwx-cI-01w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X40-bO-WDo"/>
                     </view>

@@ -30,6 +30,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var imageViewContainer: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var currentTrackLabel: UILabel!
     
     let mediaPlayer = MediaPlayer.shared
     let defaults = UserDefaults.standard
@@ -76,6 +77,8 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
         prevTrackButton.addGestureRecognizer(doubleTap)
         
         singleTap.require(toFail: doubleTap)
+        
+        currentTrackLabel.text = ""
     }
 
     override func didReceiveMemoryWarning() {
@@ -136,6 +139,24 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate {
         toCell?.textLabel?.textColor = toColor
         toCell?.detailTextLabel?.textColor = toColor
     }
+    
+    func changeCurrentTrackLabel() {
+        if let tracks = self.tracks, let index = mediaPlayer.currentPlayingTrackIndex {
+            let track = tracks[index]
+            
+            let trackNameText = "\(track["name"].stringValue) •"
+            let trackNameTextAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)]
+            
+            let attributedText = NSMutableAttributedString(string: trackNameText, attributes: trackNameTextAttributes)
+            
+            let artistText = " \(track["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", "))"
+            let attributedArtistText = NSMutableAttributedString(string: artistText)
+            
+            attributedText.append(attributedArtistText)
+            
+            currentTrackLabel.attributedText = attributedText
+        }
+    }
 
 }
 
@@ -195,8 +216,6 @@ extension MediaPlayerViewController {
                 self.showGenericErrorAlert(error: error!)
                 return
             }
-            
-            self.loadAlbumArt()
             if let trackIndex = self.mediaPlayer.currentPlayingTrackIndex {
                 self.changeCellTextColor(fromIndex: initialTrackIndex, toIndex: trackIndex, toColor: self.selectedTrackColor)
             }
@@ -210,8 +229,6 @@ extension MediaPlayerViewController {
                 self.showGenericErrorAlert(error: error!)
                 return
             }
-            
-            self.loadAlbumArt()
             if let trackIndex = self.mediaPlayer.currentPlayingTrackIndex {
                 self.changeCellTextColor(fromIndex: initialTrackIndex, toIndex: trackIndex, toColor: self.selectedTrackColor)
             }
@@ -224,8 +241,6 @@ extension MediaPlayerViewController {
                 self.showGenericErrorAlert(error: error!)
                 return
             }
-            
-            self.loadAlbumArt()
         }
     }
 }
@@ -234,6 +249,7 @@ extension MediaPlayerViewController {
 extension MediaPlayerViewController {
     func didStartPlayingTrack(_ trackUri: String) {
         loadAlbumArt()
+        changeCurrentTrackLabel()
     }
     
     func didChangePlaybackStatus(_ isPlaying: Bool) {
