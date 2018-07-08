@@ -124,7 +124,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     func loadAlbumArt() {
         if let imageData = mediaPlayer.loadAlbumArt() {
             imageView.image = UIImage(data: imageData)
-            if imageHeight.constant != albumImageHeight {
+            if imageHeight.constant != albumImageHeight && self.state != .collapsed {
                 imageHeight.constant = albumImageHeight
                 UIView.animate(withDuration: 0.3) {
                     self.view.layoutIfNeeded()

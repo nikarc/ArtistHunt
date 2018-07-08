@@ -68,8 +68,8 @@ class PlaylistTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // TODO: - Custom cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        // TODO: Custom cell
         
         let track = self.tracks[indexPath.row]
         cell.textLabel?.text = track["name"].stringValue
