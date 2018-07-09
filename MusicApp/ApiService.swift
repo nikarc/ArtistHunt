@@ -37,8 +37,9 @@ class ApiService: NSObject {
             
             // Set user default for spt token
             defaults.set(code, forKey: UserDefatultsKeys.sptCode)
-            
-            Alamofire.request("\(Constants.apiURL)/api/signup", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil)
+            let url = "\(Constants.apiURL)/api/signup"
+            print("Signup url: \(url)")
+            Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil)
                 .validate(statusCode: 200..<300)
                 .responseJSON { (response) in
                     switch response.result {

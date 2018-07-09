@@ -47,6 +47,13 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let borderTop = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 2))
+        borderTop.backgroundColor = .lightGray
+        view.addSubview(borderTop)
+        borderTop.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        borderTop.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        borderTop.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        
         mediaPlayer.delegate = self
         
         tableView.delegate = self

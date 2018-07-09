@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14295.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14270.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-76-9Yw">
-                                <rect key="frame" x="87" y="381" width="200" height="50"/>
+                                <rect key="frame" x="87.666666666666686" y="381" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="3Py-k2-kJe"/>
                                     <constraint firstAttribute="height" constant="50" id="ZRX-Za-Wl6"/>
@@ -39,7 +39,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your city" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zN8-BR-F8z">
-                                <rect key="frame" x="87" y="318" width="200" height="17"/>
+                                <rect key="frame" x="87.666666666666686" y="318" width="200" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="PcL-Jw-4El"/>
                                 </constraints>
@@ -73,7 +73,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="PlaylistView" id="iGC-RW-Tbi" customClass="PlaylistTableViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="taw-Oc-NoB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="659"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="669"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -152,7 +152,7 @@
             <objects>
                 <viewController storyboardIdentifier="MediaPlayer" id="rC0-72-RwR" customClass="MediaPlayerViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qpa-zC-axg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="759"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUl-HI-GZW">
@@ -178,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rG3-ie-zRr">
-                                        <rect key="frame" x="162" y="2" width="50" height="50"/>
+                                        <rect key="frame" x="162.66666666666666" y="2.6666666666666679" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="UCv-wR-y63"/>
                                             <constraint firstAttribute="height" constant="50" id="sUE-ra-eVA"/>
@@ -195,7 +195,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcQ-kx-rG5">
-                                        <rect key="frame" x="227" y="2" width="50" height="50"/>
+                                        <rect key="frame" x="227.66666666666666" y="2.6666666666666679" width="49.999999999999972" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="R65-Oc-vvL"/>
                                             <constraint firstAttribute="height" constant="50" id="gx1-6g-Kv2"/>
@@ -206,7 +206,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AbI-Sg-Vtr">
-                                        <rect key="frame" x="97" y="2" width="50" height="50"/>
+                                        <rect key="frame" x="97.666666666666671" y="2.6666666666666679" width="50.000000000000014" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="B8f-3R-shh"/>
                                             <constraint firstAttribute="width" constant="50" id="jcJ-vT-yYr"/>
@@ -238,7 +238,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kjh-Ow-Hro">
-                                <rect key="frame" x="0.0" y="96" width="375" height="549"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" textLabel="4W5-d9-2mo" detailTextLabel="vwh-FC-3x7" style="IBUITableViewCellStyleSubtitle" id="yQx-q4-gUk">
@@ -382,13 +382,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4n-4Y-WJp">
-                                <rect key="frame" x="0.0" y="44" width="375" height="659"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="669"/>
                                 <connections>
                                     <segue destination="RvO-yG-sNg" kind="embed" id="GjJ-Ws-GNg"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="far-KL-kib">
-                                <rect key="frame" x="0.0" y="703" width="375" height="759"/>
+                                <rect key="frame" x="0.0" y="693" width="375" height="769"/>
                                 <connections>
                                     <segue destination="rC0-72-RwR" kind="embed" identifier="MediaPlayerSegue" id="UgW-MA-U8q"/>
                                 </connections>
@@ -411,7 +411,7 @@
                             <constraint firstItem="b4n-4Y-WJp" firstAttribute="leading" secondItem="X40-bO-WDo" secondAttribute="leading" id="a1B-Ra-Ywa"/>
                             <constraint firstItem="b4n-4Y-WJp" firstAttribute="top" secondItem="X40-bO-WDo" secondAttribute="top" id="aw4-Wx-2P9"/>
                             <constraint firstItem="X40-bO-WDo" firstAttribute="trailing" secondItem="b4n-4Y-WJp" secondAttribute="trailing" id="ohr-kV-T5S"/>
-                            <constraint firstItem="X40-bO-WDo" firstAttribute="bottom" secondItem="b4n-4Y-WJp" secondAttribute="bottom" constant="75" id="sVf-eT-Xwf"/>
+                            <constraint firstItem="X40-bO-WDo" firstAttribute="bottom" secondItem="b4n-4Y-WJp" secondAttribute="bottom" constant="65" id="sVf-eT-Xwf"/>
                             <constraint firstItem="far-KL-kib" firstAttribute="bottom" secondItem="X40-bO-WDo" secondAttribute="bottom" constant="684" id="vWc-lX-xhA"/>
                             <constraint firstItem="bnz-B7-Xct" firstAttribute="leading" secondItem="X40-bO-WDo" secondAttribute="leading" id="zwx-cI-01w"/>
                         </constraints>
