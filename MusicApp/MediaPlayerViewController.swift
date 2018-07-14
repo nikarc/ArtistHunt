@@ -38,6 +38,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     let playPauseButtonIconSize: CGFloat = 30
     let trackSkipButtonSize: CGFloat = 20
     let selectedTrackColor: UIColor = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
+    let upArrowIconSize: CGFloat = 20
     
     var delegate: MediaPlayerControllerDelegate?
     var screenHeight: CGFloat?
@@ -69,7 +70,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
         
         buttonView.insertSubview(blurView, at: 0)
         
-        upArrow.setIcon(icon: .dripicon(.chevronUp), iconSize: 20, color: .gray, backgroundColor: .clear, forState: .normal)
+        upArrow.setIcon(icon: .dripicon(.chevronUp), iconSize: upArrowIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
         playPauseButton.setIcon(icon: .ionicons(.play), iconSize: playPauseButtonIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
         nextTrackButton.setIcon(icon: .ionicons(.skipForward), iconSize: trackSkipButtonSize, color: .gray, backgroundColor: .clear, forState: .normal)
         prevTrackButton.setIcon(icon: .ionicons(.skipBackward), iconSize: trackSkipButtonSize, color: .gray, backgroundColor: .clear, forState: .normal)
@@ -299,9 +300,9 @@ extension MediaPlayerViewController {
                     self.view.layoutIfNeeded()
                 }
             }
-            // Change to down arrow for button
+            upArrow.setIcon(icon: .dripicon(.chevronDown), iconSize: upArrowIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
         } else if state == .collapsed {
-            // Change to up arrow for button
+            upArrow.setIcon(icon: .dripicon(.chevronUp), iconSize: upArrowIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
         }
     }
 }
