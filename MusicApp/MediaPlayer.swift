@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import AVFoundation
 
 enum TrackSkipDirection {
     case next
@@ -125,6 +126,20 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
             player?.playSpotifyURI(track["uri"].stringValue, startingWith: 0, startingWithPosition: 0, callback: callback)
         }
     }
+    
+    func activateAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            try audioSession.setActive(true)
+        } catch let error {
+            print("error establishing audio session: \(error)")
+        }
+    }
+    
+    func deactivateAudioSession() {
+        try? AVAudioSession.sharedInstance().setActive(false)
+    }
 }
 
 // Delegate methods
@@ -136,5 +151,11 @@ extension MediaPlayer {
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
         delegate?.didChangePlaybackStatus(isPlaying)
+        
+        if isPlaying {
+            activateAudioSession()
+        } else {
+            deactivateAudioSession()
+        }
     }
 }

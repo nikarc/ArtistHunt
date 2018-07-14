@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     */
     func setInitialView(_ storyboardId: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         if storyboardId == "MediaPlayerContainer" {
             if let navigationController = storyboard.instantiateViewController(withIdentifier: storyboardId) as? MediaPlayerContainerViewController {
                 window?.rootViewController = navigationController
