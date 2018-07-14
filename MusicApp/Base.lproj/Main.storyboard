@@ -13,7 +13,7 @@
         <!--Spotify Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SpotifySignInViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupView" id="BYZ-38-t0r" customClass="SpotifySignInViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -394,10 +394,10 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnz-B7-Xct">
-                                <rect key="frame" x="0.0" y="782" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="782" width="375" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="tpS-bO-KkU"/>
+                                    <constraint firstAttribute="height" constant="40" id="tpS-bO-KkU"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -405,7 +405,7 @@
                         <constraints>
                             <constraint firstItem="far-KL-kib" firstAttribute="trailing" secondItem="X40-bO-WDo" secondAttribute="trailing" id="1vc-YN-dw1"/>
                             <constraint firstItem="far-KL-kib" firstAttribute="height" secondItem="b4n-4Y-WJp" secondAttribute="height" constant="100" id="5VY-2v-UDK"/>
-                            <constraint firstItem="bnz-B7-Xct" firstAttribute="bottom" secondItem="X40-bO-WDo" secondAttribute="bottom" constant="34" id="7az-BH-fDD"/>
+                            <constraint firstItem="bnz-B7-Xct" firstAttribute="bottom" secondItem="X40-bO-WDo" secondAttribute="bottom" constant="44" id="7az-BH-fDD"/>
                             <constraint firstItem="X40-bO-WDo" firstAttribute="trailing" secondItem="bnz-B7-Xct" secondAttribute="trailing" id="R1q-8F-dUa"/>
                             <constraint firstItem="far-KL-kib" firstAttribute="leading" secondItem="X40-bO-WDo" secondAttribute="leading" id="WmH-B9-KRw"/>
                             <constraint firstItem="b4n-4Y-WJp" firstAttribute="leading" secondItem="X40-bO-WDo" secondAttribute="leading" id="a1B-Ra-Ywa"/>

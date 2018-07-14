@@ -47,8 +47,9 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let borderTop = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 2))
-        borderTop.backgroundColor = .lightGray
+        let borderTop = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 1))
+        let colorValue: CGFloat = 204 / 255
+        borderTop.backgroundColor = UIColor(red: colorValue, green: colorValue, blue: colorValue, alpha: 1)
         view.addSubview(borderTop)
         borderTop.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         borderTop.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -200,16 +201,24 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
+    // TODO: - This is affecting multiple cells, the same cell index after scroll refresh is colored
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let track = tracks?[indexPath.row] {
+            if mediaPlayer.currentPlayingTrack != nil, let trackName = mediaPlayer.currentPlayingTrack?["name"].stringValue {
+                if trackName == track["name"].stringValue {
+                    cell.textLabel?.textColor = self.selectedTrackColor
+                }
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let track = tracks?[indexPath.row] {
-            let initialTrackIndex = self.mediaPlayer.currentPlayingTrackIndex
             mediaPlayer.playTrack(track, trackIndex: indexPath.row) { (error) in
                 guard error == nil else {
                     self.showAlert(title: "Oops!", message: "Error playing song: \(error!.localizedDescription)")
                     return
                 }
-                
-                self.changeCellTextColor(fromIndex: initialTrackIndex, toIndex: indexPath.row, toColor: self.selectedTrackColor)
             }
         }
     }
@@ -267,6 +276,8 @@ extension MediaPlayerViewController {
     func didStartPlayingTrack(_ trackUri: String) {
         loadAlbumArt()
         changeCurrentTrackLabel()
+        
+        tableView.reloadData()
     }
     
     func didChangePlaybackStatus(_ isPlaying: Bool) {
@@ -288,6 +299,9 @@ extension MediaPlayerViewController {
                     self.view.layoutIfNeeded()
                 }
             }
+            // Change to down arrow for button
+        } else if state == .collapsed {
+            // Change to up arrow for button
         }
     }
 }

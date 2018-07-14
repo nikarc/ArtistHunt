@@ -16,19 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Check for spotify token. if exists, skip login
-
-        if let _ = defaults.object(forKey: UserDefatultsKeys.sptCode) as? String, let _ = defaults.object(forKey: UserDefatultsKeys.sptUsername), let expiresIn = defaults.object(forKey: UserDefatultsKeys.sptCodeExpires) as? Date {
-            let timeDifference = Int(Date().timeIntervalSince(expiresIn))
-            if timeDifference >= 0 {
-                // Greater than 1 hour, token has expired, needs refresh
-                ApiService.refreshSPTToken { [unowned self] (error) in
-                    guard error == nil else { return }
-                    self.setInitialView()
+        if defaults.object(forKey: UserDefatultsKeys.sptCode) != nil && defaults.object(forKey: UserDefatultsKeys.sptUsername) != nil {
+            if let expiresIn = defaults.object(forKey: UserDefatultsKeys.sptCodeExpires) as? Date {
+                let timeDifference = Int(Date().timeIntervalSince(expiresIn))
+                if timeDifference >= 0 {
+                    // Greater than 1 hour, token has expired, needs refresh
+                    ApiService.refreshSPTToken { [unowned self] (error) in
+                        guard error == nil else { return }
+                        self.setInitialView("MediaPlayerContainer")
+                    }
+                } else {
+                    // token does NOT need to be refreshed, go to playist table view
+                    setInitialView("MediaPlayerContainer")
                 }
-            } else {
-                // token does NOT need to be refreshed, go to playist table view
-                setInitialView()
             }
+        } else {
+            setInitialView("SignupView")
         }
         
         return true
@@ -37,11 +40,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /**
         Set initial VC to app navigation controller (skip initial signup)
     */
-    func setInitialView() {
+    func setInitialView(_ storyboardId: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let navigationController = storyboard.instantiateViewController(withIdentifier: "MediaPlayerContainer") as? MediaPlayerContainerViewController {
-            window?.rootViewController = navigationController
-            window?.makeKeyAndVisible()
+        if storyboardId == "MediaPlayerContainer" {
+            if let navigationController = storyboard.instantiateViewController(withIdentifier: storyboardId) as? MediaPlayerContainerViewController {
+                window?.rootViewController = navigationController
+                window?.makeKeyAndVisible()
+            }
+        } else if storyboardId == "SignupView" {
+            if let signupVC = storyboard.instantiateViewController(withIdentifier: storyboardId) as? SpotifySignInViewController {
+                window?.rootViewController = signupVC
+                window?.makeKeyAndVisible()
+            }
         }
     }
     
@@ -52,10 +62,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ApiService.createUser(code: code) { [unowned self] (error) in
                 guard error == nil else {
                     print("There was an error \(error!.localizedDescription)")
+                    if let rootVC = self.window?.rootViewController {
+                        rootVC.showAlert(title: "Oops!", message: "There was an error signing up: \(error!.localizedDescription)")
+                    }
                     return
                 }
                 
-                self.setInitialView()
+                self.setInitialView("MediaPlayerContainer")
             }
         }
         

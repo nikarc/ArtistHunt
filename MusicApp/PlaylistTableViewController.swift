@@ -68,7 +68,7 @@ class PlaylistTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: - Custom cell
+        // TODO?: - Custom cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         let track = self.tracks[indexPath.row]
@@ -79,7 +79,7 @@ class PlaylistTableViewController: UITableViewController {
             readableDateFormatter.dateFormat = "MMM d h:mm a"
             
             let dateString = readableDateFormatter.string(from: eventDate)
-            cell.detailTextLabel?.text = dateString
+            cell.detailTextLabel?.text = "\(dateString) • \(track["event"]["venue"]["name"].stringValue)"
         }
         return cell
     }

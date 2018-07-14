@@ -30,8 +30,9 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     var delegate: MediaPlayerDelegate?
     var player = SPTAudioStreamingController.sharedInstance()
     var tracks: JSON?
-    var currentPlayingTrack: JSON?
     var currentPlayingTrackIndex: Int?
+    var currentPlayingTrack: JSON?
+    
     
     private override init() {
         super.init()

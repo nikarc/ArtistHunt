@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-typealias EmptyAPICallback = (_ error: Error?) -> ()
+typealias ErrorAPICallback = (_ error: Error?) -> ()
 typealias PlaylistCallback = (_ data: JSON?, _ error: Error?) -> ()
 
 class ApiService: NSObject {
@@ -28,7 +28,7 @@ class ApiService: NSObject {
         }
     }
     
-    static func createUser(code: String, _ callback: @escaping EmptyAPICallback) {
+    static func createUser(code: String, _ callback: @escaping ErrorAPICallback) {
         if let city = defaults.object(forKey: UserDefatultsKeys.cityDefault) {
             let params: Parameters = [
                 "code": code,
@@ -62,7 +62,7 @@ class ApiService: NSObject {
         }
     }
     
-    static func refreshSPTToken(_ callback: @escaping EmptyAPICallback) {
+    static func refreshSPTToken(_ callback: @escaping ErrorAPICallback) {
         if let refreshToken = defaults.object(forKey: UserDefatultsKeys.sptRefreshCode) as? String, let userame = defaults.object(forKey: UserDefatultsKeys.sptUsername) as? String {
             let params: Parameters = [
                 "refreshToken": refreshToken,
