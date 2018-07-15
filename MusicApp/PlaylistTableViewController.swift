@@ -85,6 +85,10 @@ class PlaylistTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let track = tracks[indexPath.row]
+        openVenueDetailView(track: track)
+    }
+    
+    func openVenueDetailView(track: JSON) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TrackDetail") as? TrackDetailViewController {
             vc.track = track
             

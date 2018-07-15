@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 protocol MediaPlayerContainerDelegate {
     func mediaPlayerAnimationComplete()
@@ -59,6 +60,15 @@ extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
             self.view.layoutIfNeeded()
         }) { (finished) in
             self.delegate?.mediaPlayerAnimationComplete()
+        }
+    }
+    
+    func venueButtonClicked(track: JSON) {
+        print("Child view controllers: \(childViewControllers)")
+        if let navController = childViewControllers.first as? UINavigationController {
+            if let vc = navController.viewControllers.first as? PlaylistTableViewController {
+                vc.openVenueDetailView(track: track)
+            }
         }
     }
 }

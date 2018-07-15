@@ -16,6 +16,7 @@ struct Constants {
     static let dbDate: String = "yyyy-MM-dd'T'HH:mm:ss"
     
     static let sptGreen: UIColor = UIColor(red: 30 / 255, green: 215 / 255, blue: 96 / 255, alpha: 1.0)
+    static let systemBlue: UIColor = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
 }
 
 struct UserDefatultsKeys {

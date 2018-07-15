@@ -17,6 +17,7 @@ enum MediaPlayerViewState {
 
 protocol MediaPlayerControllerDelegate {
     func stateToggled(_ state: MediaPlayerViewState)
+    func venueButtonClicked(track: JSON)
 }
 
 class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPlayerContainerDelegate {
@@ -37,7 +38,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     let albumImageHeight: CGFloat = 200
     let playPauseButtonIconSize: CGFloat = 30
     let trackSkipButtonSize: CGFloat = 20
-    let selectedTrackColor: UIColor = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
+    let selectedTrackColor: UIColor = Constants.systemBlue
     let upArrowIconSize: CGFloat = 20
     let dateFormatter = DateFormatter()
     
@@ -99,7 +100,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func upButtonPressed(_ sender: Any) {
+    @IBAction func upButtonPressed(_ sender: Any? = nil) {
         switch state {
         case .collapsed:
             // Media player is collapsed, expand
@@ -187,6 +188,13 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
             currentTrackLabel.attributedText = attributedText
         }
     }
+    
+    @objc func goToVenue(sender: VenueButton) {
+        upButtonPressed()
+        
+        guard let track = sender.track else { return }
+        delegate?.venueButtonClicked(track: track)
+    }
 
 }
 
@@ -206,6 +214,26 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
         if let track = tracks?[indexPath.row] {
             cell.textLabel?.text = track["name"].stringValue
             cell.detailTextLabel?.text = track["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
+            
+            let cellWidth = cell.bounds.width
+            let buttonWidth: CGFloat = 50
+            let buttonHeight: CGFloat = 30
+            let button = VenueButton(frame: CGRect(x: cellWidth - (buttonWidth + 12), y: 5, width: buttonWidth, height: buttonHeight))
+            button.setTitle("Venue", for: .normal)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            button.backgroundColor = Constants.systemBlue
+            button.layer.cornerRadius = 3
+            
+            cell.addSubview(button)
+            
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.topAnchor.constraint(equalTo: cell.topAnchor, constant: 7).isActive = true
+            button.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -12).isActive = true
+            button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+            button.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+            
+            button.track = track
+            button.addTarget(self, action: #selector(goToVenue(sender:)), for: .touchUpInside)
         }
         
         return cell
