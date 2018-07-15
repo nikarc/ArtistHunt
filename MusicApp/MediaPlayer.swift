@@ -9,6 +9,7 @@
 import Foundation
 import SwiftyJSON
 import AVFoundation
+import MediaPlayer
 
 enum TrackSkipDirection {
     case next
@@ -27,6 +28,8 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     static let shared = MediaPlayer()
     
     let defaults = UserDefaults.standard
+    let commandCenter = MPRemoteCommandCenter.shared()
+    let nowPlayingInfo = MPNowPlayingInfoCenter.default()
     
     var delegate: MediaPlayerDelegate?
     var player = SPTAudioStreamingController.sharedInstance()
@@ -129,9 +132,32 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     
     func activateAudioSession() {
         let audioSession = AVAudioSession.sharedInstance()
+        UIApplication.shared.beginReceivingRemoteControlEvents()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
             try audioSession.setActive(true)
+            
+            guard let currentPlayingTrack = currentPlayingTrack else { return }
+            URLSession.shared.dataTask(with: URL(string: currentPlayingTrack["album"]["images"][0]["url"].stringValue)!) { (data, response, error) in
+                guard error == nil, data != nil else {
+                    print("Error getting album artwork for now playing")
+                    return
+                }
+                
+                guard let image = UIImage(data: data!) else { return }
+                let artwork = MPMediaItemArtwork(boundsSize: CGSize(width: 50, height: 50), requestHandler: { (_) -> UIImage in
+                    return image
+                })
+                
+                self.nowPlayingInfo.nowPlayingInfo = [
+                    MPMediaItemPropertyTitle: currentPlayingTrack["title"].stringValue,
+                    MPMediaItemPropertyArtist: currentPlayingTrack["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", "),
+                    MPMediaItemPropertyAlbumTitle: currentPlayingTrack["album"]["title"].stringValue,
+                    MPMediaItemPropertyPlaybackDuration: currentPlayingTrack["duration_ms"].intValue / 1000,
+                    MPNowPlayingInfoPropertyElapsedPlaybackTime: 0.0,
+                    MPMediaItemPropertyArtwork: artwork
+                ]
+            }.resume()
         } catch let error {
             print("error establishing audio session: \(error)")
         }

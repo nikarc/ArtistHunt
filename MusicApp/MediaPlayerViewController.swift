@@ -192,8 +192,6 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell", for: indexPath)
         
-        cell.selectionStyle = .none
-        
         if let track = tracks?[indexPath.row] {
             cell.textLabel?.text = track["name"].stringValue
             cell.detailTextLabel?.text = track["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
