@@ -39,14 +39,18 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     let trackSkipButtonSize: CGFloat = 20
     let selectedTrackColor: UIColor = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
     let upArrowIconSize: CGFloat = 20
+    let dateFormatter = DateFormatter()
     
     var delegate: MediaPlayerControllerDelegate?
     var screenHeight: CGFloat?
     var state: MediaPlayerViewState = .collapsed
-    var tracks: JSON?
+    var tracks: [JSON]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dateFormatter.dateFormat = Constants.dbDate
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         
         let borderTop = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 1))
         let colorValue: CGFloat = 204 / 255
@@ -111,7 +115,14 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
                     
                     guard tracks != nil else { return }
                     
-                    self.tracks = tracks!
+                    self.tracks = tracks!.arrayValue.sorted(by: { [unowned self] (prev, next) -> Bool in
+                        if let prevDate = self.dateFormatter.date(from: prev["event"]["datetime_local"].stringValue),
+                            let nextDate = self.dateFormatter.date(from: next["event"]["datetime_local"].stringValue) {
+                            return prevDate < nextDate
+                        }
+                        
+                        return prev["name"].stringValue < next["name"].stringValue
+                    })
                     self.tableView.reloadData()
                     
                     self.delegate?.stateToggled(self.state)
@@ -186,7 +197,7 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tracks?.arrayValue.count ?? 0
+        return self.tracks?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
