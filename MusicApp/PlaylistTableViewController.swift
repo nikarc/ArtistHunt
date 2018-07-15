@@ -88,9 +88,11 @@ class PlaylistTableViewController: UITableViewController {
         openVenueDetailView(track: track)
     }
     
-    func openVenueDetailView(track: JSON) {
+    func openVenueDetailView(track: JSON, shouldPopVc: Bool = false) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TrackDetail") as? TrackDetailViewController {
             vc.track = track
+            
+            if shouldPopVc { self.navigationController?.popViewController(animated: false) }
             
             self.navigationController?.pushViewController(vc, animated: true)
         }

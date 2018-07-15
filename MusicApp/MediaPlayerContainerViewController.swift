@@ -67,7 +67,7 @@ extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
         print("Child view controllers: \(childViewControllers)")
         if let navController = childViewControllers.first as? UINavigationController {
             if let vc = navController.viewControllers.first as? PlaylistTableViewController {
-                vc.openVenueDetailView(track: track)
+                vc.openVenueDetailView(track: track, shouldPopVc: true)
             }
         }
     }
