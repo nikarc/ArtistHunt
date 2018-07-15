@@ -49,7 +49,7 @@ extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
         switch state {
         case .collapsed:
             // Media Player is collapsed, expand
-            bottomLayoutConstraint.constant = 70
+            bottomLayoutConstraint.constant = 64
         case .expanded:
             // Media player is expanded, collapse
             bottomLayoutConstraint.constant = initialBottomLayoutConstant!

@@ -200,7 +200,6 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    // TODO: - This is affecting multiple cells, the same cell index after scroll refresh is colored
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let track = tracks?[indexPath.row] {
             if mediaPlayer.currentPlayingTrack != nil, let trackName = mediaPlayer.currentPlayingTrack?["name"].stringValue {
