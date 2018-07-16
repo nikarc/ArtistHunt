@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		30394A745C42A42B94D965E5 /* Pods_MusicAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010408CC60F72262110C376E /* Pods_MusicAppUITests.framework */; };
 		56ED6BCE358F43D9F826A8D1 /* Pods_MusicAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FABEAF27E12D8A6A7CF19C /* Pods_MusicAppTests.framework */; };
+		DD5AEA6820FC050300733F29 /* CityPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AEA6720FC050300733F29 /* CityPickerViewController.swift */; };
 		DD78C22920D9DF9400226C2F /* EncodeURIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78C22820D9DF9400226C2F /* EncodeURIComponent.swift */; };
 		DD935D5320D546F90026EF95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD935D5220D546F90026EF95 /* AppDelegate.swift */; };
 		DD935D5820D546F90026EF95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD935D5620D546F90026EF95 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		9FD096F52ED1570FF009ED72 /* Pods-MusicApp.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp.dev.xcconfig"; path = "Pods/Target Support Files/Pods-MusicApp/Pods-MusicApp.dev.xcconfig"; sourceTree = "<group>"; };
 		A3597B5358B3F0A4C0F38D46 /* Pods-MusicApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicApp/Pods-MusicApp.release.xcconfig"; sourceTree = "<group>"; };
 		B9FABEAF27E12D8A6A7CF19C /* Pods_MusicAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD5AEA6720FC050300733F29 /* CityPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityPickerViewController.swift; sourceTree = "<group>"; };
 		DD78C22820D9DF9400226C2F /* EncodeURIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeURIComponent.swift; sourceTree = "<group>"; };
 		DD935D4F20D546F80026EF95 /* MusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD935D5220D546F90026EF95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		DD935D5120D546F80026EF95 /* MusicApp */ = {
 			isa = PBXGroup;
 			children = (
+				DD5AEA6720FC050300733F29 /* CityPickerViewController.swift */,
 				DDBCBE5620FBDAD300D5EC09 /* VenueButton.swift */,
 				DDF72DED20F0D8E600195028 /* MediaPlayer.swift */,
 				DDEB49E820EC5BCA001C6E3E /* MediaPlayerContainerViewController.swift */,
@@ -230,6 +233,7 @@
 				DD935D4C20D546F80026EF95 /* Frameworks */,
 				DD935D4D20D546F80026EF95 /* Resources */,
 				FD372ADF4796EA801CBE4494 /* [CP] Embed Pods Frameworks */,
+				7ED36E7290976956F99068F4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -368,6 +372,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7ED36E7290976956F99068F4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MusicApp/Pods-MusicApp-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicApp/Pods-MusicApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B7F056C03DA1E278BC361C65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -438,6 +464,7 @@
 				DD935D8520D9DDC30026EF95 /* Constants.swift in Sources */,
 				DDEB49E320EB0B95001C6E3E /* TrackDetailViewController.swift in Sources */,
 				DDEB49E520EC548E001C6E3E /* WebViewController.swift in Sources */,
+				DD5AEA6820FC050300733F29 /* CityPickerViewController.swift in Sources */,
 				DDEB49DF20E95161001C6E3E /* PlaylistTableViewController.swift in Sources */,
 				DD935D8120D9DC380026EF95 /* SpotifySignInViewController.swift in Sources */,
 				DDF72DEE20F0D8E600195028 /* MediaPlayer.swift in Sources */,
@@ -629,6 +656,7 @@
 					"$(PROJECT_DIR)/MusicApp",
 				);
 				INFOPLIST_FILE = MusicApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -655,6 +683,7 @@
 					"$(PROJECT_DIR)/MusicApp",
 				);
 				INFOPLIST_FILE = MusicApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -827,6 +856,7 @@
 					"$(PROJECT_DIR)/MusicApp",
 				);
 				INFOPLIST_FILE = MusicApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

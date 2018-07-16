@@ -29,45 +29,22 @@
                                     <action selector="signInSubmit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="77S-Zl-QHF"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FsO-Mh-Zb0">
-                                <rect key="frame" x="37.666666666666657" y="323" width="300" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="JJn-2S-tr8"/>
-                                    <constraint firstAttribute="width" constant="300" id="zIo-Rh-jlv"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your city" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zN8-BR-F8z">
-                                <rect key="frame" x="87.666666666666686" y="298" width="200" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="PcL-Jw-4El"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="nVv-76-9Yw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2TO-wN-MDq"/>
-                            <constraint firstItem="FsO-Mh-Zb0" firstAttribute="top" secondItem="zN8-BR-F8z" secondAttribute="bottom" constant="8" id="NIj-Eo-ovh"/>
-                            <constraint firstItem="FsO-Mh-Zb0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dSf-BB-NWP"/>
                             <constraint firstItem="nVv-76-9Yw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ecR-qp-lls"/>
-                            <constraint firstItem="zN8-BR-F8z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fSe-UJ-QKJ"/>
-                            <constraint firstItem="nVv-76-9Yw" firstAttribute="top" secondItem="FsO-Mh-Zb0" secondAttribute="bottom" constant="8" id="x7f-Ys-dz1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ZG6-qQ-rYO"/>
                     <connections>
-                        <outlet property="cityTextField" destination="FsO-Mh-Zb0" id="UKT-dp-2pa"/>
                         <outlet property="signInButton" destination="nVv-76-9Yw" id="mbm-p8-CZH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398" y="133"/>
+            <point key="canvasLocation" x="1198" y="132"/>
         </scene>
         <!--Playlist Table View Controller-->
         <scene sceneID="D4j-m1-c8a">
@@ -112,7 +89,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PUd-75-dqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2388" y="132.68365817091455"/>
+            <point key="canvasLocation" x="3330.4000000000001" y="132.26600985221674"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="IPp-aB-TJj">
@@ -375,7 +352,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3Z-MI-2cc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3381.5999999999999" y="132.68365817091455"/>
+            <point key="canvasLocation" x="4324" y="132.26600985221674"/>
         </scene>
         <!--Media Player Container View Controller-->
         <scene sceneID="Teu-ay-rp4">
@@ -445,7 +422,59 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vda-Ag-M1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1448.8" y="132.68365817091455"/>
+            <point key="canvasLocation" x="2391.1999999999998" y="132.26600985221674"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jC5-61-C63">
+            <objects>
+                <navigationController storyboardIdentifier="SignupNavController" automaticallyAdjustsScrollViewInsets="NO" id="PNa-PB-UsA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ftd-Km-P9Q">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Tfd-Y6-k3b" kind="relationship" relationship="rootViewController" id="yuN-HR-NYf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B9n-qw-EtA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-404" y="132"/>
+        </scene>
+        <!--City Picker View Controller-->
+        <scene sceneID="RYq-3B-NDS">
+            <objects>
+                <viewController storyboardIdentifier="CityPicker" id="Tfd-Y6-k3b" customClass="CityPickerViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C8y-b0-zeE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imH-LC-O1P">
+                                <rect key="frame" x="12" y="381" width="351" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ofo-CJ-9Cw"/>
+                                </constraints>
+                                <state key="normal" title="Choose Your City"/>
+                                <connections>
+                                    <action selector="showChooseCityPopup:" destination="Tfd-Y6-k3b" eventType="touchUpInside" id="2Jy-KJ-6eP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ph8-zl-DTt" firstAttribute="trailing" secondItem="imH-LC-O1P" secondAttribute="trailing" constant="12" id="5Np-jM-gWa"/>
+                            <constraint firstItem="imH-LC-O1P" firstAttribute="leading" secondItem="ph8-zl-DTt" secondAttribute="leading" constant="12" id="GTr-t5-V0x"/>
+                            <constraint firstItem="imH-LC-O1P" firstAttribute="centerY" secondItem="C8y-b0-zeE" secondAttribute="centerY" id="cui-bK-1GU"/>
+                            <constraint firstItem="imH-LC-O1P" firstAttribute="centerX" secondItem="C8y-b0-zeE" secondAttribute="centerX" id="nJH-Bf-eOf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ph8-zl-DTt"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6fk-rC-ddX"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SzA-AU-VF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="350" y="132"/>
         </scene>
     </scenes>
 </document>

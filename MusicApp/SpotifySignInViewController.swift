@@ -10,14 +10,10 @@ import UIKit
 
 class SpotifySignInViewController: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var cityTextField: UITextField!
-    
-    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print("URL: \(Constants.apiURL)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,10 +22,7 @@ class SpotifySignInViewController: UIViewController {
     }
     
     @IBAction func signInSubmit(_ sender: Any) {
-        if let city = cityTextField.text {
-            defaults.set(city, forKey: UserDefatultsKeys.cityDefault)
-            ApiService.loginToSpotify()
-        }
+        ApiService.loginToSpotify()
     }
     
     /*

@@ -23,7 +23,9 @@ class ApiService: NSObject {
     
     static func loginToSpotify() {
         if let uriEncoded = Constants.sptScopes.encodeURIComponent() {
-            let sptURL = URL(string: "https://accounts.spotify.com/authorize?response_type=code&client_id=\(Constants.sptClientId)&scope=\(uriEncoded)&redirect_uri=\(Constants.sptCallback)")!
+            let urlString = "https://accounts.spotify.com/authorize?response_type=code&client_id=\(Constants.sptClientId)&scope=\(uriEncoded)&redirect_uri=\(Constants.sptCallback)"
+
+            let sptURL = URL(string: urlString)!
             UIApplication.shared.open(sptURL, options: [:], completionHandler: nil)
         }
     }

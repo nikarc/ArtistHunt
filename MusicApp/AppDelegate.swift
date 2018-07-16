@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             setInitialView("SignupView")
         }
         
+        GMSPlacesClient.provideAPIKey("AIzaSyAG9y2zx-9ri0Ijy_aUbqUryR8gBUq91bM")
+        
         return true
     }
     
@@ -49,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window?.makeKeyAndVisible()
             }
         } else if storyboardId == "SignupView" {
-            if let signupVC = storyboard.instantiateViewController(withIdentifier: storyboardId) as? SpotifySignInViewController {
+            if let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupNavController") as? UINavigationController {
                 window?.rootViewController = signupVC
                 window?.makeKeyAndVisible()
             }
