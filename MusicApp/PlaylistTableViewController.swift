@@ -85,7 +85,7 @@ class PlaylistTableViewController: UITableViewController {
         
         let keys = self.tracks.keys.sorted()
         guard let track = self.tracks[keys[indexPath.row]] else { return cell }
-        cell.textLabel?.text = track[0]["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
+        cell.textLabel?.text = track[0]["event"]["performers"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
         
         if let eventDate = dateFormatter.date(from: track[0]["event"]["datetime_local"].stringValue) {
             let readableDateFormatter = DateFormatter()

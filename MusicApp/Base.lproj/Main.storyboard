@@ -424,7 +424,7 @@
                                     <action selector="showChooseCityPopup:" destination="Tfd-Y6-k3b" eventType="touchUpInside" id="2Jy-KJ-6eP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-76-9Yw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-76-9Yw" customClass="AppButton" customModule="MusicApp" customModuleProvider="target">
                                 <rect key="frame" x="12" y="439" width="351" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZRX-Za-Wl6"/>
@@ -434,13 +434,13 @@
                                     <action selector="signInToSpotify:" destination="Tfd-Y6-k3b" eventType="touchUpInside" id="Shi-ai-P1m"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcom to ArtistHunt!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arE-kE-pwB">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ArtistHunt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arE-kE-pwB">
                                 <rect key="frame" x="12" y="138" width="351" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="IGd-33-aFE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hwW-Io-eCW">
@@ -448,13 +448,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="wML-Ic-byS"/>
                                 </constraints>
-                                <string key="text">ArtistHunt aggregates venues in your area and creates a Spotify playlist to help you find new artsists. Choose your city and log in to your Spotify account to start finding new msuic now!</string>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">ArtistHunt aggregates venues in your area and creates a Spotify playlist to help you find new artsists. Choose your city and log in to your Spotify account to start finding new music now!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ph8-zl-DTt" firstAttribute="trailing" secondItem="arE-kE-pwB" secondAttribute="trailing" constant="12" id="4SR-fe-WZQ"/>
                             <constraint firstItem="nVv-76-9Yw" firstAttribute="leading" secondItem="ph8-zl-DTt" secondAttribute="leading" constant="12" id="4pV-41-nuW"/>

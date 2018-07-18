@@ -16,8 +16,9 @@ class CityPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Constants.appGray
         spotifySignInButton.isEnabled = false
+        spotifySignInButton.isHidden = true
+        spotifySignInButton.backgroundColor = Constants.sptGreen
     }
     
 
@@ -54,6 +55,7 @@ extension CityPickerViewController: GMSAutocompleteViewControllerDelegate {
         }
         
         spotifySignInButton.isEnabled = true
+        spotifySignInButton.isHidden = false
         
         dismiss(animated: true)
     }
