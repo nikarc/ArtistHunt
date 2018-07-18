@@ -9,9 +9,11 @@
 import UIKit
 import SwiftyJSON
 
+typealias _tracksDictionary = [String: [JSON]]
+
 class PlaylistTableViewController: UITableViewController {
     
-    var tracks: [JSON] = []
+    var tracks: _tracksDictionary = [:]
     
     let dateFormatter = DateFormatter()
 
@@ -20,6 +22,8 @@ class PlaylistTableViewController: UITableViewController {
         
         dateFormatter.dateFormat = Constants.dbDate
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        self.title = "ArtistHunt"
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -38,16 +42,27 @@ class PlaylistTableViewController: UITableViewController {
                 return
             }
             
-            self.tracks = json!["playlist"]["tracks"].arrayValue.sorted(by: { [unowned self] (prev, next) -> Bool in
-                if let prevDate = self.dateFormatter.date(from: prev["event"]["datetime_local"].stringValue),
-                    let nextDate = self.dateFormatter.date(from: next["event"]["datetime_local"].stringValue) {
-                    return prevDate < nextDate
-                }
-                
-                return prev["name"].stringValue < next["name"].stringValue
-            })
+            self.tracks = self.aggregateTracksByDate(tracks: json!["playlist"]["tracks"].arrayValue)
             self.tableView.reloadData()
         }
+    }
+    
+    func aggregateTracksByDate(tracks: [JSON]) -> _tracksDictionary {
+        var tracksDictionary: _tracksDictionary = [:]
+        
+        tracks.forEach { (track) in
+            let date = track["event"]["datetime_local"].stringValue
+            guard let artist = track["artists"].arrayValue.first else { return }
+            let key = "\(date):\(artist)"
+            
+            if tracksDictionary[key] == nil {
+                tracksDictionary[key] = [track]
+            } else {
+                tracksDictionary[key]?.append(track)
+            }
+        }
+        
+        return tracksDictionary
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,39 +73,39 @@ class PlaylistTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return tracks.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        let track = self.tracks[indexPath.row]
-        cell.textLabel?.text = track["name"].stringValue
+        let keys = self.tracks.keys.sorted()
+        guard let track = self.tracks[keys[indexPath.row]] else { return cell }
+        cell.textLabel?.text = track[0]["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
         
-        if let eventDate = dateFormatter.date(from: track["event"]["datetime_local"].stringValue) {
+        if let eventDate = dateFormatter.date(from: track[0]["event"]["datetime_local"].stringValue) {
             let readableDateFormatter = DateFormatter()
             readableDateFormatter.dateFormat = "MMM d h:mm a"
             
             let dateString = readableDateFormatter.string(from: eventDate)
-            cell.detailTextLabel?.text = "\(dateString) • \(track["event"]["venue"]["name"].stringValue)"
+            cell.detailTextLabel?.text = "\(dateString) • \(track[0]["event"]["venue"]["name"].stringValue)"
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let track = tracks[indexPath.row]
-        openVenueDetailView(track: track)
+        let keys = self.tracks.keys.sorted()
+        guard let track = tracks[keys[indexPath.row]] else { return }
+        openVenueDetailView(tracks: track)
     }
     
-    func openVenueDetailView(track: JSON, shouldPopVc: Bool = false) {
+    func openVenueDetailView(tracks: [JSON], shouldPopVc: Bool = false) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TrackDetail") as? TrackDetailViewController {
-            vc.track = track
+            vc.tracks = tracks
             
             if shouldPopVc { self.navigationController?.popViewController(animated: false) }
             

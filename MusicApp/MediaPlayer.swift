@@ -30,6 +30,7 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     let defaults = UserDefaults.standard
     let commandCenter = MPRemoteCommandCenter.shared()
     let nowPlayingInfo = MPNowPlayingInfoCenter.default()
+    let dateFormatter = DateFormatter()
     
     var delegate: MediaPlayerDelegate?
     var player = SPTAudioStreamingController.sharedInstance()
@@ -40,6 +41,9 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     
     private override init() {
         super.init()
+        
+        dateFormatter.dateFormat = Constants.dbDate
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         if let player = player {
             player.playbackDelegate = self
@@ -49,6 +53,28 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
             if let accessToken = defaults.object(forKey: UserDefatultsKeys.sptAccessToken) as? String {
                 player.login(withAccessToken: accessToken)
             }
+        }
+        
+        commandCenter.pauseCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.playPause({ (_) in })
+            return .success
+        }
+        
+        commandCenter.playCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.playPause({ (_) in })
+            
+            return .success
+        }
+        
+        commandCenter.nextTrackCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.switchTrack(context: .next, { (_) in })
+            return .success
+        }
+        
+        commandCenter.previousTrackCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.switchTrack(context: .prev, { (_) in })
+            
+            return .success
         }
     }
     
@@ -66,7 +92,7 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
                 }
                 
                 self.tracks = _tracks!
-                callback(_tracks!, nil)
+                callback(self.tracks, nil)
             }
         } else {
             callback(tracks, nil)

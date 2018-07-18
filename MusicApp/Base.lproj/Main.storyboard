@@ -10,42 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Spotify Sign In View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController storyboardIdentifier="SignupView" id="BYZ-38-t0r" customClass="SpotifySignInViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-76-9Yw">
-                                <rect key="frame" x="87.666666666666686" y="381" width="200" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="3Py-k2-kJe"/>
-                                    <constraint firstAttribute="height" constant="50" id="ZRX-Za-Wl6"/>
-                                </constraints>
-                                <state key="normal" title="Sign In To Spotify"/>
-                                <connections>
-                                    <action selector="signInSubmit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="77S-Zl-QHF"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="nVv-76-9Yw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2TO-wN-MDq"/>
-                            <constraint firstItem="nVv-76-9Yw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ecR-qp-lls"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ZG6-qQ-rYO"/>
-                    <connections>
-                        <outlet property="signInButton" destination="nVv-76-9Yw" id="mbm-p8-CZH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1198" y="132"/>
-        </scene>
         <!--Playlist Table View Controller-->
         <scene sceneID="D4j-m1-c8a">
             <objects>
@@ -316,7 +280,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9NN-wr-2Ah">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9NN-wr-2Ah" customClass="AppButton" customModule="MusicApp" customModuleProvider="target">
                                 <rect key="frame" x="16" y="538" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="grQ-rq-Fa5"/>
@@ -450,7 +414,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imH-LC-O1P">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imH-LC-O1P" customClass="AppButton" customModule="MusicApp" customModuleProvider="target">
                                 <rect key="frame" x="12" y="381" width="351" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Ofo-CJ-9Cw"/>
@@ -460,17 +424,58 @@
                                     <action selector="showChooseCityPopup:" destination="Tfd-Y6-k3b" eventType="touchUpInside" id="2Jy-KJ-6eP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVv-76-9Yw">
+                                <rect key="frame" x="12" y="439" width="351" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZRX-Za-Wl6"/>
+                                </constraints>
+                                <state key="normal" title="Sign In To Spotify"/>
+                                <connections>
+                                    <action selector="signInToSpotify:" destination="Tfd-Y6-k3b" eventType="touchUpInside" id="Shi-ai-P1m"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcom to ArtistHunt!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arE-kE-pwB">
+                                <rect key="frame" x="12" y="138" width="351" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="IGd-33-aFE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hwW-Io-eCW">
+                                <rect key="frame" x="48" y="176" width="279" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="wML-Ic-byS"/>
+                                </constraints>
+                                <string key="text">ArtistHunt aggregates venues in your area and creates a Spotify playlist to help you find new artsists. Choose your city and log in to your Spotify account to start finding new msuic now!</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ph8-zl-DTt" firstAttribute="trailing" secondItem="imH-LC-O1P" secondAttribute="trailing" constant="12" id="5Np-jM-gWa"/>
-                            <constraint firstItem="imH-LC-O1P" firstAttribute="leading" secondItem="ph8-zl-DTt" secondAttribute="leading" constant="12" id="GTr-t5-V0x"/>
+                            <constraint firstItem="ph8-zl-DTt" firstAttribute="trailing" secondItem="arE-kE-pwB" secondAttribute="trailing" constant="12" id="4SR-fe-WZQ"/>
+                            <constraint firstItem="nVv-76-9Yw" firstAttribute="leading" secondItem="ph8-zl-DTt" secondAttribute="leading" constant="12" id="4pV-41-nuW"/>
+                            <constraint firstItem="ph8-zl-DTt" firstAttribute="trailing" secondItem="nVv-76-9Yw" secondAttribute="trailing" constant="12" id="FOC-Qc-fc6"/>
+                            <constraint firstItem="ph8-zl-DTt" firstAttribute="trailing" secondItem="hwW-Io-eCW" secondAttribute="trailing" constant="48" id="O29-5R-7xC"/>
+                            <constraint firstItem="arE-kE-pwB" firstAttribute="leading" secondItem="ph8-zl-DTt" secondAttribute="leading" constant="12" id="YCm-jC-VO8"/>
+                            <constraint firstItem="ph8-zl-DTt" firstAttribute="trailing" secondItem="imH-LC-O1P" secondAttribute="trailing" constant="12" id="YUI-Ix-Oaa"/>
+                            <constraint firstItem="arE-kE-pwB" firstAttribute="top" secondItem="ph8-zl-DTt" secondAttribute="top" constant="50" id="apK-AU-fb4"/>
                             <constraint firstItem="imH-LC-O1P" firstAttribute="centerY" secondItem="C8y-b0-zeE" secondAttribute="centerY" id="cui-bK-1GU"/>
+                            <constraint firstItem="hwW-Io-eCW" firstAttribute="top" secondItem="arE-kE-pwB" secondAttribute="bottom" constant="8" id="dvR-22-u89"/>
                             <constraint firstItem="imH-LC-O1P" firstAttribute="centerX" secondItem="C8y-b0-zeE" secondAttribute="centerX" id="nJH-Bf-eOf"/>
+                            <constraint firstItem="hwW-Io-eCW" firstAttribute="leading" secondItem="ph8-zl-DTt" secondAttribute="leading" constant="48" id="sb7-R4-qrV"/>
+                            <constraint firstItem="imH-LC-O1P" firstAttribute="leading" secondItem="ph8-zl-DTt" secondAttribute="leading" constant="12" id="tDG-cB-2HN"/>
+                            <constraint firstItem="nVv-76-9Yw" firstAttribute="top" secondItem="imH-LC-O1P" secondAttribute="bottom" constant="8" id="woN-1t-GTz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ph8-zl-DTt"/>
                     </view>
                     <navigationItem key="navigationItem" id="6fk-rC-ddX"/>
+                    <connections>
+                        <outlet property="spotifySignInButton" destination="nVv-76-9Yw" id="Fxl-iE-w0c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SzA-AU-VF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

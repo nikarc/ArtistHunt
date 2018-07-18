@@ -17,6 +17,8 @@ struct Constants {
     
     static let sptGreen: UIColor = UIColor(red: 30 / 255, green: 215 / 255, blue: 96 / 255, alpha: 1.0)
     static let systemBlue: UIColor = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
+    static let appOrgange: UIColor = UIColor(red: 244 / 255, green: 124 / 255, blue: 97 / 255, alpha: 1.0)
+    static let appGray: UIColor = UIColor(red: 55 / 255, green: 55 / 255, blue: 55 / 255, alpha: 1.0)
 }
 
 struct UserDefatultsKeys {

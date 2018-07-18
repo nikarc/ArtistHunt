@@ -12,7 +12,7 @@ import MapKit
 
 class TrackDetailViewController: UIViewController {
     
-    var track: JSON?
+    var tracks: [JSON]?
     let regionRadius: CLLocationDistance = 800
     
     @IBOutlet weak var mapView: MKMapView!
@@ -22,8 +22,8 @@ class TrackDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("EVENT: \(track!["event"])")
-        if let track = track {
+        if let track = tracks?[0] {
+            print("Track: \(track)")
             self.title = track["name"].stringValue
             
             let venue = track["event"]["venue"]
@@ -65,7 +65,7 @@ class TrackDetailViewController: UIViewController {
     
     
     @IBAction func purchaseTickets(_ sender: Any) {
-        if let track = track, let vc = storyboard?.instantiateViewController(withIdentifier: "WebView") as? WebViewController {
+        if let track = tracks?[0], let vc = storyboard?.instantiateViewController(withIdentifier: "WebView") as? WebViewController {
             vc.url = track["event"]["url"].stringValue
             
             navigationController?.pushViewController(vc, animated: true)

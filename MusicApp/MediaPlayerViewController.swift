@@ -20,7 +20,7 @@ protocol MediaPlayerControllerDelegate {
     func venueButtonClicked(track: JSON)
 }
 
-class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPlayerContainerDelegate {
+class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPlayerContainerDelegate, VenueButtonCellDelegate {
     
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var upArrow: UIButton!
@@ -45,10 +45,12 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     var delegate: MediaPlayerControllerDelegate?
     var screenHeight: CGFloat?
     var state: MediaPlayerViewState = .collapsed
-    var tracks: [JSON]?
+    var tracks: JSON?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(UINib(nibName: "VenueButtonTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "MediaCell")
         
         dateFormatter.dateFormat = Constants.dbDate
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -108,22 +110,15 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
                 self.delegate?.stateToggled(self.state)
                 self.state = .expanded
             } else {
-                mediaPlayer.getPlaylist { (tracks, error) in
+                ApiService.shared.getPlaylist { (tracks, error) in
                     guard error == nil else {
                         self.showAlert(title: "Oops!", message: "Error getting tracks: \(error!.localizedDescription)")
                         return
                     }
                     
-                    guard tracks != nil else { return }
+                    guard let tracks = tracks else { return }
                     
-                    self.tracks = tracks!.arrayValue.sorted(by: { [unowned self] (prev, next) -> Bool in
-                        if let prevDate = self.dateFormatter.date(from: prev["event"]["datetime_local"].stringValue),
-                            let nextDate = self.dateFormatter.date(from: next["event"]["datetime_local"].stringValue) {
-                            return prevDate < nextDate
-                        }
-                        
-                        return prev["name"].stringValue < next["name"].stringValue
-                    })
+                    self.tracks = tracks
                     self.tableView.reloadData()
                     
                     self.delegate?.stateToggled(self.state)
@@ -188,13 +183,6 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
             currentTrackLabel.attributedText = attributedText
         }
     }
-    
-    @objc func goToVenue(sender: VenueButton) {
-        upButtonPressed()
-        
-        guard let track = sender.track else { return }
-        delegate?.venueButtonClicked(track: track)
-    }
 
 }
 
@@ -209,31 +197,13 @@ extension MediaPlayerViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MediaCell", for: indexPath) as! VenueButtonTableViewCell
         
         if let track = tracks?[indexPath.row] {
-            cell.textLabel?.text = track["name"].stringValue
-            cell.detailTextLabel?.text = track["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
-            
-            let cellWidth = cell.bounds.width
-            let buttonWidth: CGFloat = 50
-            let buttonHeight: CGFloat = 30
-            let button = VenueButton(frame: CGRect(x: cellWidth - (buttonWidth + 12), y: 5, width: buttonWidth, height: buttonHeight))
-            button.setTitle("Venue", for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-            button.backgroundColor = Constants.systemBlue
-            button.layer.cornerRadius = 3
-            
-            cell.addSubview(button)
-            
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.topAnchor.constraint(equalTo: cell.topAnchor, constant: 7).isActive = true
-            button.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -12).isActive = true
-            button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-            button.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-            
-            button.track = track
-            button.addTarget(self, action: #selector(goToVenue(sender:)), for: .touchUpInside)
+            cell.delegate = self
+            cell.track = track
+            cell.venueLabel?.text = track["name"].stringValue
+            cell.venueDetailLabel?.text = track["artists"].map({ $0.1["name"].stringValue }).joined(separator: ", ")
         }
         
         return cell
@@ -340,5 +310,14 @@ extension MediaPlayerViewController {
         } else if state == .collapsed {
             upArrow.setIcon(icon: .dripicon(.chevronUp), iconSize: upArrowIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
         }
+    }
+}
+
+// MARK: - Venue button cell delegate methods
+extension MediaPlayerViewController {
+    func venueButtonTouched(track: JSON) {
+        upButtonPressed()
+        
+        delegate?.venueButtonClicked(track: track)
     }
 }

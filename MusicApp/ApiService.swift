@@ -110,6 +110,7 @@ class ApiService: NSObject {
                     case .success(let data):
                         let json = JSON(data)
                         self.tracks = json["playlist"]["tracks"]
+                        
                         callback(json, nil)
                     case .failure(let error):
                         callback(nil, error)

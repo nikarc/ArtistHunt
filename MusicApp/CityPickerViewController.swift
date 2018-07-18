@@ -10,11 +10,14 @@ import UIKit
 import GooglePlaces
 
 class CityPickerViewController: UIViewController {
-
+    
+    @IBOutlet weak var spotifySignInButton: AppButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.backgroundColor = Constants.appGray
+        spotifySignInButton.isEnabled = false
     }
     
 
@@ -32,6 +35,11 @@ class CityPickerViewController: UIViewController {
         present(autocompletePicker, animated: true)
     }
     
+    @IBAction func signInToSpotify(_ sender: Any) {
+        ApiService.loginToSpotify()
+    }
+    
+    
 }
 
 extension CityPickerViewController: GMSAutocompleteViewControllerDelegate {
@@ -45,9 +53,7 @@ extension CityPickerViewController: GMSAutocompleteViewControllerDelegate {
             }
         }
         
-        if let sptSignupVC = storyboard?.instantiateViewController(withIdentifier: "SignupView") as? SpotifySignInViewController {
-            navigationController?.pushViewController(sptSignupVC, animated: true)
-        }
+        spotifySignInButton.isEnabled = true
         
         dismiss(animated: true)
     }
