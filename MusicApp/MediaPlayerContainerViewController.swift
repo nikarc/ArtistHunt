@@ -29,7 +29,6 @@ class MediaPlayerContainerViewController: UIViewController, MediaPlayerControlle
         initialBottomLayoutConstant = bottomLayoutConstraint.constant
         
         if let navController = storyboard?.instantiateViewController(withIdentifier: "NavController") as? UINavigationController {
-            // TODO: This doesnt make sense, how to add nav controller to container view
             addChildViewController(navController)
             playlistTableViewContainer.addSubview(navController.view)
             if let playlistVC = navController.viewControllers.first as? PlaylistTableViewController {
@@ -75,7 +74,7 @@ extension MediaPlayerContainerViewController {
     }
     
     func venueButtonClicked(track: JSON) {
-        if let navController = childViewControllers.first as? UINavigationController {
+        if let navController = childViewControllers.last as? UINavigationController {
             if let vc = navController.viewControllers.first as? PlaylistTableViewController {
                 vc.openVenueDetailView(tracks: [track], shouldPopVc: true)
             }
