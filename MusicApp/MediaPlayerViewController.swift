@@ -20,7 +20,7 @@ protocol MediaPlayerControllerDelegate {
     func venueButtonClicked(track: JSON)
 }
 
-class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPlayerContainerDelegate, VenueButtonCellDelegate {
+class MediaPlayerViewController: UIViewController {
     
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var upArrow: UIButton!
@@ -46,6 +46,8 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
     var screenHeight: CGFloat?
     var state: MediaPlayerViewState = .collapsed
     var tracks: JSON?
+    var progressBar: UIView?
+    var progressBarWidthAnchor: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +97,18 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
         singleTap.require(toFail: doubleTap)
         
         currentTrackLabel.text = ""
+        
+        progressBar = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 3))
+        progressBar?.backgroundColor = Constants.systemBlue
+        buttonView.addSubview(progressBar!)
+        buttonView.bringSubview(toFront: progressBar!)
+        
+        progressBar?.translatesAutoresizingMaskIntoConstraints = false
+        progressBar?.topAnchor.constraint(equalTo: buttonView.topAnchor).isActive = true
+        progressBar?.leftAnchor.constraint(equalTo: buttonView.leftAnchor).isActive = true
+        progressBar?.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        progressBarWidthAnchor = progressBar?.widthAnchor.constraint(equalToConstant: 0)
+        progressBarWidthAnchor!.isActive = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -279,7 +293,7 @@ extension MediaPlayerViewController {
 }
 
 // MARK: - Media Player Delegate methods
-extension MediaPlayerViewController {
+extension MediaPlayerViewController: MediaPlayerDelegate {
     func didStartPlayingTrack(_ trackUri: String) {
         loadAlbumArt()
         changeCurrentTrackLabel()
@@ -294,10 +308,19 @@ extension MediaPlayerViewController {
             playPauseButton.setIcon(icon: .ionicons(.play), iconSize: playPauseButtonIconSize, color: .gray, backgroundColor: .clear, forState: .normal)
         }
     }
+    
+    func trackPositionIntervalChanged(_ position: TimeInterval) {
+        guard let track = mediaPlayer.currentPlayingTrack else { return }
+        let trackLengthInSeconds = track["duration_ms"].doubleValue / 1000.0
+        let trackPercentComplete = CGFloat(position / trackLengthInSeconds)
+        let progressBarWidth: CGFloat = view.bounds.width * trackPercentComplete
+        
+        progressBarWidthAnchor!.constant = progressBarWidth
+    }
 }
 
 // MARK: - Media Player Container Delegate
-extension MediaPlayerViewController {
+extension MediaPlayerViewController: MediaPlayerContainerDelegate {
     func mediaPlayerAnimationComplete() {
         if state == .expanded {
             if let _ = mediaPlayer.currentPlayingTrack {
@@ -314,7 +337,7 @@ extension MediaPlayerViewController {
 }
 
 // MARK: - Venue button cell delegate methods
-extension MediaPlayerViewController {
+extension MediaPlayerViewController: VenueButtonCellDelegate {
     func venueButtonTouched(track: JSON) {
         upButtonPressed()
         

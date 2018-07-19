@@ -21,6 +21,7 @@ typealias MediaPlayerTrackCallback = (_ tracks: JSON?, _ error: Error?) -> ()
 protocol MediaPlayerDelegate {
     func didStartPlayingTrack(_ trackUri: String)
     func didChangePlaybackStatus(_ isPlaying: Bool)
+    func trackPositionIntervalChanged(_ position: TimeInterval)
 }
 
 class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate {
@@ -127,7 +128,6 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     }
     
     func switchTrack(context: TrackSkipDirection, _ callback: @escaping SPTErrorableOperationCallback) {
-        print("Player: \(player) Currentplayingtrackindex: \(currentPlayingTrackIndex) tracks: \(tracks?.count)")
         if let player = player, let currentPlayingTrackIndex = currentPlayingTrackIndex, let tracks = tracks {
             switch context {
             case .next:
@@ -196,8 +196,7 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     }
 }
 
-// Delegate methods
-
+// Spotify Delegate methods
 extension MediaPlayer {
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         delegate?.didStartPlayingTrack(trackUri)
@@ -211,5 +210,9 @@ extension MediaPlayer {
         } else {
             deactivateAudioSession()
         }
+    }
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
+        delegate?.trackPositionIntervalChanged(position)
     }
 }
