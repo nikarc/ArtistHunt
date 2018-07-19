@@ -110,7 +110,7 @@ class MediaPlayerViewController: UIViewController, MediaPlayerDelegate, MediaPla
                 self.delegate?.stateToggled(self.state)
                 self.state = .expanded
             } else {
-                ApiService.shared.getPlaylist { (tracks, error) in
+                mediaPlayer.getPlaylist { (tracks, error) in
                     guard error == nil else {
                         self.showAlert(title: "Oops!", message: "Error getting tracks: \(error!.localizedDescription)")
                         return

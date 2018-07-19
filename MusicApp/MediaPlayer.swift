@@ -38,6 +38,7 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     var currentPlayingTrackIndex: Int?
     var currentPlayingTrack: JSON?
     
+    // TODO: Keep track of current playtime of track to be shown on lockscreen
     
     private override init() {
         super.init()
@@ -126,6 +127,7 @@ class MediaPlayer: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamin
     }
     
     func switchTrack(context: TrackSkipDirection, _ callback: @escaping SPTErrorableOperationCallback) {
+        print("Player: \(player) Currentplayingtrackindex: \(currentPlayingTrackIndex) tracks: \(tracks?.count)")
         if let player = player, let currentPlayingTrackIndex = currentPlayingTrackIndex, let tracks = tracks {
             switch context {
             case .next:
