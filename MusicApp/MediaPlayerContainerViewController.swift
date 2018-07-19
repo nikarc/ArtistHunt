@@ -13,18 +13,29 @@ protocol MediaPlayerContainerDelegate {
     func mediaPlayerAnimationComplete()
 }
 
-class MediaPlayerContainerViewController: UIViewController {
+class MediaPlayerContainerViewController: UIViewController, MediaPlayerControllerDelegate, PlaylistTableViewDelegate {
 
     @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var playlistTableViewContainer: UIView!
     
     var delegate: MediaPlayerContainerDelegate?
     var mediaPlayerContainer: MediaPlayerViewController?
     var initialBottomLayoutConstant: CGFloat?
+    var loadingView: LoadingView = LoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialBottomLayoutConstant = bottomLayoutConstraint.constant
+        
+        if let navController = storyboard?.instantiateViewController(withIdentifier: "NavController") as? UINavigationController {
+            // TODO: This doesnt make sense, how to add nav controller to container view
+            addChildViewController(navController)
+            playlistTableViewContainer.addSubview(navController.view)
+            if let playlistVC = navController.viewControllers.first as? PlaylistTableViewController {
+                playlistVC.delegate = self
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,7 +56,7 @@ class MediaPlayerContainerViewController: UIViewController {
 }
 
 
-extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
+extension MediaPlayerContainerViewController {
     func stateToggled(_ state: MediaPlayerViewState) {
         switch state {
         case .collapsed:
@@ -69,5 +80,16 @@ extension MediaPlayerContainerViewController: MediaPlayerControllerDelegate {
                 vc.openVenueDetailView(tracks: [track], shouldPopVc: true)
             }
         }
+    }
+}
+
+extension MediaPlayerContainerViewController {
+    func beginLoadingTracks() {
+        view.addSubview(loadingView)
+        loadingView.make()
+    }
+    
+    func doneLoadingTracks() {
+        loadingView.destroy()
     }
 }

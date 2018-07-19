@@ -15,7 +15,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="PlaylistView" id="iGC-RW-Tbi" customClass="PlaylistTableViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="taw-Oc-NoB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="654"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -328,9 +328,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4n-4Y-WJp">
                                 <rect key="frame" x="0.0" y="44" width="375" height="654"/>
-                                <connections>
-                                    <segue destination="RvO-yG-sNg" kind="embed" id="GjJ-Ws-GNg"/>
-                                </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="far-KL-kib">
                                 <rect key="frame" x="0.0" y="679" width="375" height="754"/>
@@ -364,6 +361,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomLayoutConstraint" destination="vWc-lX-xhA" id="B8x-sU-Rmb"/>
+                        <outlet property="playlistTableViewContainer" destination="b4n-4Y-WJp" id="FME-f2-De2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9S-r3-wxe" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -37,6 +37,9 @@ class CityPickerViewController: UIViewController {
     }
     
     @IBAction func signInToSpotify(_ sender: Any) {
+        let loadingView = LoadingView()
+        view.addSubview(loadingView)
+        loadingView.make()
         ApiService.loginToSpotify()
     }
     

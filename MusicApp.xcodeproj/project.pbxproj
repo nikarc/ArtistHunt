@@ -13,6 +13,7 @@
 		DD5AEA6A20FED23200733F29 /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AEA6920FED23200733F29 /* AppButton.swift */; };
 		DD5AEA6D20FF5DD700733F29 /* VenueButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AEA6B20FF5DD700733F29 /* VenueButtonTableViewCell.swift */; };
 		DD5AEA6E20FF5DD700733F29 /* VenueButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD5AEA6C20FF5DD700733F29 /* VenueButtonTableViewCell.xib */; };
+		DD5AEA7020FF7EB700733F29 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AEA6F20FF7EB700733F29 /* LoadingView.swift */; };
 		DD78C22920D9DF9400226C2F /* EncodeURIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78C22820D9DF9400226C2F /* EncodeURIComponent.swift */; };
 		DD935D5320D546F90026EF95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD935D5220D546F90026EF95 /* AppDelegate.swift */; };
 		DD935D5820D546F90026EF95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD935D5620D546F90026EF95 /* Main.storyboard */; };
@@ -69,6 +70,7 @@
 		DD5AEA6920FED23200733F29 /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
 		DD5AEA6B20FF5DD700733F29 /* VenueButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueButtonTableViewCell.swift; sourceTree = "<group>"; };
 		DD5AEA6C20FF5DD700733F29 /* VenueButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VenueButtonTableViewCell.xib; sourceTree = "<group>"; };
+		DD5AEA6F20FF7EB700733F29 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		DD78C22820D9DF9400226C2F /* EncodeURIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeURIComponent.swift; sourceTree = "<group>"; };
 		DD935D4F20D546F80026EF95 /* MusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD935D5220D546F90026EF95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				DD935D8420D9DDC30026EF95 /* Constants.swift */,
 				DD78C22820D9DF9400226C2F /* EncodeURIComponent.swift */,
 				DD935D5920D546FA0026EF95 /* Assets.xcassets */,
+				DD5AEA6F20FF7EB700733F29 /* LoadingView.swift */,
 				DD935D5B20D546FA0026EF95 /* LaunchScreen.storyboard */,
 				DD935D5E20D546FA0026EF95 /* Info.plist */,
 				DDEB49EB20EDBE39001C6E3E /* SpotifyAudioPlayback.framework */,
@@ -448,12 +451,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MusicApp/Pods-MusicApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftIcons/SwiftIcons.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftIcons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -473,6 +478,7 @@
 				DDEB49E720EC5AC1001C6E3E /* MediaPlayerViewController.swift in Sources */,
 				DD935D8520D9DDC30026EF95 /* Constants.swift in Sources */,
 				DDEB49E320EB0B95001C6E3E /* TrackDetailViewController.swift in Sources */,
+				DD5AEA7020FF7EB700733F29 /* LoadingView.swift in Sources */,
 				DDEB49E520EC548E001C6E3E /* WebViewController.swift in Sources */,
 				DD5AEA6820FC050300733F29 /* CityPickerViewController.swift in Sources */,
 				DDEB49DF20E95161001C6E3E /* PlaylistTableViewController.swift in Sources */,

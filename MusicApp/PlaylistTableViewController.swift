@@ -11,8 +11,14 @@ import SwiftyJSON
 
 typealias _tracksDictionary = [String: [JSON]]
 
+protocol PlaylistTableViewDelegate {
+    func beginLoadingTracks()
+    func doneLoadingTracks()
+}
+
 class PlaylistTableViewController: UITableViewController {
     
+    var delegate: PlaylistTableViewDelegate?
     var tracks: _tracksDictionary = [:]
     
     let dateFormatter = DateFormatter()
@@ -31,6 +37,8 @@ class PlaylistTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        delegate?.beginLoadingTracks()
+
         ApiService.shared.getPlaylist { [unowned self] (json, error) in
             guard error == nil else {
                 self.showAlert(title: "Oops!", message: "There was an error getting the playlist: \(error!.localizedDescription)")
@@ -44,6 +52,7 @@ class PlaylistTableViewController: UITableViewController {
             
             self.tracks = self.aggregateTracksByDate(tracks: json!["playlist"]["tracks"].arrayValue)
             self.tableView.reloadData()
+            self.delegate?.doneLoadingTracks()
         }
     }
     
