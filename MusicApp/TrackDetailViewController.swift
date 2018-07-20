@@ -13,7 +13,9 @@ import MapKit
 class TrackDetailViewController: UIViewController {
     
     var tracks: [JSON]?
+
     let regionRadius: CLLocationDistance = 800
+    let dateFormatter = DateFormatter()
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var venueNameLabel: UILabel!
@@ -23,7 +25,6 @@ class TrackDetailViewController: UIViewController {
         super.viewDidLoad()
 
         if let track = tracks?[0] {
-            print("Track: \(track)")
             self.title = track["name"].stringValue
             
             let venue = track["event"]["venue"]
@@ -33,7 +34,22 @@ class TrackDetailViewController: UIViewController {
             let initialLocation = CLLocation(latitude: lat, longitude: lon)
             centerMapOnLocation(location: initialLocation)
             
-            let venueName = venue["name"].stringValue
+            var venueName = venue["name"].stringValue
+            let date = track["event"]["datetime_local"].stringValue
+            
+            let inputDateFormatter = DateFormatter()
+            inputDateFormatter.dateFormat = Constants.dbDate
+            inputDateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            
+            let outputDateFormatter = DateFormatter()
+            outputDateFormatter.dateFormat = "MMM dd yyyy h:mm a"
+            
+            if let dateObject = inputDateFormatter.date(from: date) {
+                let dateString = outputDateFormatter.string(from: dateObject)
+                
+                venueName += " - \(dateString)"
+            }
+            
             venueNameLabel.text = venueName
             
             var venueInfoText = "\(venue["address"]) \(venue["extended_address"])\n"

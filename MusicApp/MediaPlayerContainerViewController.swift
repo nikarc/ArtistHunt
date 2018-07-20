@@ -31,6 +31,13 @@ class MediaPlayerContainerViewController: UIViewController, MediaPlayerControlle
         if let navController = storyboard?.instantiateViewController(withIdentifier: "NavController") as? UINavigationController {
             addChildViewController(navController)
             playlistTableViewContainer.addSubview(navController.view)
+            
+            navController.view.translatesAutoresizingMaskIntoConstraints = false
+            navController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            navController.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+            navController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            navController.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+            
             if let playlistVC = navController.viewControllers.first as? PlaylistTableViewController {
                 playlistVC.delegate = self
             }
